@@ -1,9 +1,9 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
+  - title: "About button"
+    url: /urlforpage/
+  - title: "DImRed button name"
+    url: /urlfortestpost/ # put this url as the permalink of the page you are linking to!
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
