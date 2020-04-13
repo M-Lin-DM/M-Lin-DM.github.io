@@ -5,7 +5,7 @@ layout: "single"
 permalink: /Thermoregulators/
 tagline: "How rewards delivered 'by proxy' can teach agents to act in favor of group objectives"
 header:
-  overlay_image: /images/thermoreg.png
+  overlay_image: /images/thermoreg.jpg
 mathjax: "true"
 ---
 
@@ -27,7 +27,7 @@ I define a group-level reward as a reward which is computed and triggered as a f
 
 I imagine a group of 6 agents who are tasked with maintaing their group mean temperature $$T_g$$ at a certain target temperature $$T_0 = 0$$. Each agent is able to shift her own temperature $$T_p$$ either up or down by a fixed increment per timestep. 
 
-![](/images/thermoreg.png)
+![](/images/thermoreg.jpg)
 I train the agents with a discrete action space $$\{-1, 0, 1\}$$ corresponding to stepping down, not moving, and stepping up on the y-axis. Movement is restricted to the y axis, and height visuallizes temperature. The plane coresponds to $$y=0$$. The reward signal is defined as 
 $$R(T_g) = 0.25* 4^{1-\beta|T_g - 0|}$$ ($$\beta = 0.2$$)  
 which approaches 0 as $$|T_g| \rightarrow \infty$$ and approaches 1 as $$|T_g| \rightarrow 0$$. This reward is given every time an agent requests an action in Unity ML-Agents (which is at a fixed interval):
@@ -81,10 +81,15 @@ Case 3 is below:
 
 ```
 
-The model is trained with PPO using Unity's ML-Agents kit.  You can find my repository [here](https://pages.github.com/)
+The model is trained with PPO using Unity's ML-Agents kit.  You can find my repository [here](https://github.com/M-Lin-DM/M-Lin-DM.github.io/)
 
 # Results
-<iframe width="640" height="360" src="https://www.youtube.com/watch?v=GoFEs1gS5X8" frameborder="0" allowfullscreen></iframe>
+<!-- <iframe width="640" height="360" 
+src="https://www.youtube.com/watch?v=GoFEs1gS5X8" frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe> -->
+
+[![IMAGE ALT TEXT](/images/thermoreg_thumb.jpg)](https://www.youtube.com/watch?v=GoFEs1gS5X8 "Video Title")
 
 ## The impact of observation type
 
