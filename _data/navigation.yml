@@ -10,3 +10,18 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
+
+sidebar:
+- title: "Parent Page A"
+  children:
+    - title: "Child Page A1"
+      url: /urlforpage/
+    - title: "Child Page A2"
+      url: /urlfortestpost/
+
+- title: "Parent Page B"
+  children:
+    - title: "Child Page B1"
+      url: /urlforpage/
+    - title: "Child Page B2"
+      url: /urlfortestpost/
