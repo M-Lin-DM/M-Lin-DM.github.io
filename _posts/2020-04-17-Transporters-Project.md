@@ -9,10 +9,10 @@ header:
 mathjax: "true"
 ---
 # In Brief
-- 
--
--
--
+- 3
+- dsf
+- sdf
+- sdf
 
 # Intro and Concepts explored by this project
 
