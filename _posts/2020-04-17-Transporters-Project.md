@@ -127,5 +127,10 @@ sdf
 sdfsdf
 sdf
 
+<<<<<<< HEAD
 ![](/images/transporters/agent0xcomp.JPG)
 *caption*
+=======
+![](/images/transporters/agent0xcomp.jpg)
+*caption*
+>>>>>>> 928671acc0aec4bb5fcf7f8b4abdc466f6a16add
