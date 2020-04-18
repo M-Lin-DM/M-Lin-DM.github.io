@@ -5,21 +5,28 @@ layout: "single"
 permalink: /Transporters/
 tagline: ""
 header:
-  overlay_image: /images/transporters/capture.jpg
+  overlay_image: /images/transporters/capture.JPG
 mathjax: "true"
 ---
-# Abstract
+# In Brief
+- 
+-
+-
+-
 
 # Intro and Concepts explored by this project
 
 ## Learned behavioral modes directly linked to binary observations
 
-In single-agent deep reinforcement learning scenarios, it is often beneficial to provide the agent with information on their internal state. In problems where the agent must learn to control the movement of its body in order to move or fight for example, the angles and relative positions of all its joints are given as an observation. A neural network model must then learn the correct mapping between this bodily configuration and an appropriate action effecting movment. 
+In single-agent deep reinforcement learning scenarios, it is often beneficial to provide the agent with information on their internal state. In problems where the agent must learn to control the movement of its body in order to walk for example, the angles and relative positions of all its joints are given as an observation. A neural network model must then learn a mapping between this bodily configuration and an appropriate action effecting movment. 
 
-Observations/states based on "self-awareness" can be much simpler; yet, they can lead to dramatic behavioral shifts when the internal state being observed changes. I have found anecdotally that agents trained with an observation vector including a binary state such as "I'm hungry = 0/1" can cause them to exhibit completely different *behvioral modes* when this state changes. For example, the agent may ignore a food source until im-hungry switches from 0 to 1, and it will then begin approaching it. This begs the question of what would happen if agents were trained using observations which include a one-hot encoded ID number (which remains fixed during inference.) **Through training, will individuals evolve different behavioral sub-types as a result of perceiving this "ID state" in the same way that a single agent learns distinct behavioral modes?**
+Observations based on "self-awareness" can be much simpler in fact. Agents trained with an observation vector including a binary state such as "I'm hungry = 0/1" can exhibit dramatic behavioral shifts when this state changes. For example, the agent may ignore a food source until im-hungry switches from 0 to 1, and it will then begin approaching it. In a previous version of the project described here, I found that providing agents information on the object they are currently carrying can cause them to exhibit completely different *behvioral modes* when this object changes. The information, called "item carried," was represented as a one-hot encoding of three mutually exclusive states: {empty-handed, carrying item 1, carrying item 2}. When agents began carrying item 2, for example, they begin moving in the +x direction (Fig ).
 
-The inclusion of a one-hot encoded ID implicitly allows agents **partially unshared** neural network parameters in the first dense layer. An agent has exclusive access to a subset of weights in this layer (fig below). In the single-agent case, the influence of a single binary state is evidently enough to induce a different behavioral mode (the example above, pursuing food vs not). This suggests that including one-hot encoded IDs may be sufficient to allow emergent behavioral differentiation through the process of training. In this project I assess the impact of providing each agent their own one-hot encoded ID number as part of their observation (or state). 
-![](/images/transporters/onehotNN.jpg)
+This begs the question of what would happen if agents were trained using observations which include a one-hot encoded *ID number* (which is to remain fixed during inference.) **Through training, will individuals evolve different behavioral sub-types as a result of perceiving this "ID state" in the same way that a single agent learns distinct behavioral modes?**
+
+### How can a single neural network input make such a significant behavioral difference? 
+The inclusion of a one-hot encoded ID implicitly allows agents **partially unshared** neural network parameters in the first dense layer. An agent has exclusive access to a subset of weights in this layer (fig below). In the single-agent case, the influence of a single binary state is evidently enough to induce a different behavioral mode. This suggests that including one-hot encoded IDs may be sufficient to allow emergent behavioral differentiation through the process of training. In this project I assess the impact of providing each agent their own one-hot encoded ID number as part of their observation (or state). 
+![](/images/transporters/onehotNN.JPG)
 *Fig. *
 ## Obligatory vs. Emergent Cooperation
 In multi-agent reinforcement learning and agent-based modeling, it is important to make a distiction between the (more interesting) "emergent" cooperation and what I would call "obligatory" or "prescribed" cooperation. This project uses the latter. I define emergent cooperation as cooperative behavior (agents working together to do a task) which has not been directly incentivized and is not absolutely required to perform well on a task. Obligatory cooperation on the other hand has been strongly incentivized, possibly using rewards that reinforce the cooperative act directly. My project directly reinforces cooperative acts and even makes such acts necessary in order to complete the task. 
@@ -30,15 +37,15 @@ In multi-agent reinforcement learning and agent-based modeling, it is important 
 I train agents to acheive a group-level objective: transporting items across a space as fast as possible. The game is designed so that it **requires** cooperation to complete the task. Specifically, agents can retrieve green spheres (item 1) from the source box, but they can't deposit them in the sink box themselves. Instead they must pass it to an empty-handed neighbor, who can then deposit it in the sink box. That is, only those who have received item 1 from a neighbor can deposit it. This is achieved by automatically converting the item 1 to item 2 when it is received.
 
 To obtain item 1, pass it, and deposit item 2, agents must collide. The item transfer occurs at the same frame the collision occured. A reward of +1 is triggered by each of the three events and by no other collision types. In the case of passing, the reward is given to both the passer and receiver at the time of collison. Therefore, cooperation is not only required but incentivized directly. This contrasts with several works in multi-agent deep RL which achieve emergent cooperative behavior (ie without direct incentivization or requirement.) My study is directed more towards emergent diversity in a necessarily cooperative task.
-![](/images/transporters/transfer_on_contact.jpg)
+![](/images/transporters/transfer_on_contact.JPG)
 *Fig. Agents (yellow cylinders) obtain and transfer items (spheres) at the moment of collision. An empty handed agent (item =0) must first retrieve item 1 from the source box (green). It can then transfer it to an empty-handed agent in step 2. The item will then self-convert to item 2 (red sphere). Finally the agent can deposit item 2 in the sink box (red cylinder)*
 
 ### Observations
 Agents receive the one-hot encoded item type $$\{0,1,2\}$$ that they are carrying $$V_{item-carried} \in \{0,1\}^{3}$$. This is critical to include as it allows the agent to adopt different behavioral when their item_carried changes. In practice, sudden shifts in behavior are common when this part of the observation vector changes (see video).
 
 In most multi-agent settings it is necessary to let agents perceive information about each other. I achieve this by physically manifesting the agents "item_carried" state as a sphere that moves in sync with the agent at all times. I then allow other agents to perceive the state of their neighbors via a dual ray cast sensor. The upper tier ray cast detects only the arena walls and the item being carried (tagged sphere1/sphere2) above other agents (a total of 3 objects). The lower ray cast detects the source and sink boxes and other agents (3 objects). Each ray cast sensor comprises a vector $$V_{raycast-lower} \in \mathbb{R}^{35}$$, $$V_{raycast-upper} \in \mathbb{R}^{35}$$
-![](/images/transporters/raycast2level_2.jpg)
-![](/images/transporters/raycast2level.jpg)
+![](/images/transporters/raycast2level_2.JPG)
+![](/images/transporters/raycast2level.JPG)
 *Fig. Agents use two-layer raycast percpetions in addition to their one-hot encoded ID and forward-facing vector. The top layer is able to detect the item carried by neighbors and the walls. The bottom layer detects the source and sink boxes and other agents.*
 
 In addtion to ray casts, each agent receives its one-hot encoded ID: $$V_{ID} \in \{0,1\}^6$$ and its forward-facing vector normalized to length 1: $$V_{forward} \in \mathbb{R}^3$$. The forward facing vector acts like a compass and aids in agents orienting themselves. It may speed up learning of good policies; however it leads to inflexible behavior when the environment is changed (see Results).
@@ -97,22 +104,28 @@ branch 1: $$\{0, 1, 2\}$$ = {no rotation, rotate counterclockwise, rotate clockw
 
 
 ## Partially shared (or rather, *unshared*) parameters led to increased specialization
-![](/images/transporters/tablefofe.jpg)
+![](/images/transporters/tablefofe.JPG)
 *caption*
 
-![](/images/transporters/SD.jpg)
-![](/images/transporters/SD0.jpg)
-![](/images/transporters/SD1.jpg)
+![](/images/transporters/SD.JPG)
+![](/images/transporters/SD0.JPG)
+![](/images/transporters/SD1.JPG)
 *caption*
 
 
 ## Group performance did not benefit from increased specialization
-![](/images/transporters/CumulativeR.jpg)
+sfdsdfsf
+sdfs
+![](/images/transporters/CumulativeR.JPG)
 *caption*
 
 ## The three behavioral modes shown by the observation vectors' data manifold
-![](/images/transporters/agent0_item.jpg)
+sdfsdfsf
+sdf
+![](/images/transporters/agent0_item.JPG)
 *caption*
+sdfsdf
+sdf
 
-![](/images/transporters/agent0xcomp.jpg)
+![](/images/transporters/agent0xcomp.JPG)
 *caption*
