@@ -9,12 +9,12 @@ header:
 mathjax: "true"
 ---
 # In Brief
-- 3
-- dsf
-- sdf
-- sdf
+- I train agents moving in 2D to obtain objects, pass them to their neighbors, and deposit them in a box in such a way that the task is not possible without cooperation.
+- I allow agents to learn slightly different policies by providing each with a unique one-hot encoded ID number as an observation.
+- Statisically significant changes in individual behavior emerge during training but do not increase group performance on the task.
+- The system scales well over modest increases in group size.
 
-# Intro and Concepts explored by this project
+# Intro and Concepts explored in this project
 
 ## Learned behavioral modes directly linked to binary observations
 
@@ -24,14 +24,12 @@ Observations based on "self-awareness" can be much simpler in fact. Agents train
 
 This begs the question of what would happen if agents were trained using observations which include a one-hot encoded *ID number* (which is to remain fixed during inference.) **Through training, will individuals evolve different behavioral sub-types as a result of perceiving this "ID state" in the same way that a single agent learns distinct behavioral modes?**
 
-### How can a single neural network input make such a significant behavioral difference? 
-The inclusion of a one-hot encoded ID implicitly allows agents **partially unshared** neural network parameters in the first dense layer. An agent has exclusive access to a subset of weights in this layer (fig below). In the single-agent case, the influence of a single binary state is evidently enough to induce a different behavioral mode. This suggests that including one-hot encoded IDs may be sufficient to allow emergent behavioral differentiation through the process of training. In this project I assess the impact of providing each agent their own one-hot encoded ID number as part of their observation (or state). 
+### Partially unshared neural network parameters 
+The inclusion of a one-hot encoded ID implicitly allows agents **partially unshared** neural network parameters in the first dense layer. An agent has exclusive access to a subset of weights in this layer (fig below). In the single-agent case, the influence of a single binary state is evidently enough to induce a different behavioral mode. This suggests that including one-hot encoded IDs may be sufficient to allow emergent behavioral differentiation through the process of training. **In this project I assess the impact of providing each agent their own one-hot encoded ID number as part of their observation.**
 ![](/images/transporters/onehotNN.JPG)
-*Fig. *
+*Fig. Red lines highlight the subset of weights available to an agent with ID=2 (of 3). During training and inference, no other agents will use these weights as that input node will be set to 0.*
 ## Obligatory vs. Emergent Cooperation
-In multi-agent reinforcement learning and agent-based modeling, it is important to make a distiction between the (more interesting) "emergent" cooperation and what I would call "obligatory" or "prescribed" cooperation. This project uses the latter. I define emergent cooperation as cooperative behavior (agents working together to do a task) which has not been directly incentivized and is not absolutely required to perform well on a task. Obligatory cooperation on the other hand has been strongly incentivized, possibly using rewards that reinforce the cooperative act directly. My project directly reinforces cooperative acts and even makes such acts necessary in order to complete the task. 
-
-## "Functional" vs "Intrinsic" Specialization
+In multi-agent reinforcement learning and agent-based modeling, it is important to make a distiction between the (more interesting) "emergent" cooperation and what I would call "obligatory" or "prescribed" cooperation. This project uses the latter. I define emergent cooperation as cooperative behavior (agents working together to do a task) which has not been directly incentivized and is not absolutely required to perform well on a task. Obligatory cooperation on the other hand has been strongly incentivized, possibly using rewards that reinforce the cooperative act directly. My project directly reinforces cooperative acts using dense rewards and even makes such acts necessary in order to complete the task. 
 
 # Reinforcement learning problem to be solved
 I train agents to acheive a group-level objective: transporting items across a space as fast as possible. The game is designed so that it **requires** cooperation to complete the task. Specifically, agents can retrieve green spheres (item 1) from the source box, but they can't deposit them in the sink box themselves. Instead they must pass it to an empty-handed neighbor, who can then deposit it in the sink box. That is, only those who have received item 1 from a neighbor can deposit it. This is achieved by automatically converting the item 1 to item 2 when it is received.
@@ -48,9 +46,9 @@ In most multi-agent settings it is necessary to let agents perceive information 
 ![](/images/transporters/raycast2level.JPG)
 *Fig. Agents use two-layer raycast percpetions in addition to their one-hot encoded ID and forward-facing vector. The top layer is able to detect the item carried by neighbors and the walls. The bottom layer detects the source and sink boxes and other agents.*
 
-In addtion to ray casts, each agent receives its one-hot encoded ID: $$V_{ID} \in \{0,1\}^6$$ and its forward-facing vector normalized to length 1: $$V_{forward} \in \mathbb{R}^3$$. The forward facing vector acts like a compass and aids in agents orienting themselves. It may speed up learning of good policies; however it leads to inflexible behavior when the environment is changed (see Results).
+Finally, each agent receives its one-hot encoded ID: $$V_{ID} \in \{0,1\}^6$$ and its forward-facing vector normalized to length 1: $$V_{forward} \in \mathbb{R}^3$$. The forward facing vector acts like a compass and aids in agents orienting themselves. It may speed up learning of good policies; however it leads to inflexible behavior when the environment is changed (see Results).
 
-Ultimately all observations are concatenated and fed to a neural network with 4 densely connected layers. 
+Ultimately all observations are concatenated and fed to a neural network with 4 densely connected layers. The system was trained with 6 agents but many of my results use only 4 during inference without a significant decrease in performance.
 
 
 ```csharp
@@ -99,33 +97,41 @@ branch 1: $$\{0, 1, 2\}$$ = {no rotation, rotate counterclockwise, rotate clockw
 # Results
 
 ## Scaling the game: Including more agents increases performance
+Agent behavior is robust to scaling the group size under the range I tested. In order to deploy more agents than 6, I simply set all agent IDs = 0 (for all group sizes). Making all agents identicle did not significantly affect their performance. 
+The *per-capita* cumulative reward per episode declines beyond a group size of 8. Overcrowding might be decreasing mobility.
+![](/images/transporters/meancumRscaling.JPG)
+*Fig. Mean per-episode cumulative reward over all agents (left) and on a per-capita basis (right). Mean $$\pm$$ standard error shown.*
 
 ## Changing the environment leads to task failure
+When the source and sink boxes are position-swapped, the agents fail to adapt (gaining little reward per episode). The agents' observation included their own forward facing vector, which provides information on their orientation within the space. It is likely that this observation accelerated training. However, generalization ability could be enhanced by removing it.
 
-
-## Partially shared (or rather, *unshared*) parameters led to increased specialization
+## Partially unshared parameters led to (mildly) increased specialization
+There were detectable but small differences in the behavior of agents with different IDs. The table shows the number of timesteps that each agent spent carrying each item. This is a simple way to quantify the difference in preferences for behavioral modes or tasks. A chi-squared test of independence showed a significant relationship between the ID number and item-carried $$\chi^2(6, N=3611996 (300 episodes)) = 1425, p<2E-16$$. This means the proportion of time spent in each mode differed significantly between agents. 
 ![](/images/transporters/tablefofe.JPG)
-*caption*
+*Fig. Observed $$f_o$$ and expected $$f_e$$ frequencies of timesteps each agent spent carrying each item. Expected is computed assuming independence of the variables.*
 
+Surprisingly, I found that when making all agent ID's identicle (using the same neural network, but providing the same ID as input to all agents), there is still a significant irregularity in the proportions that each agent spent in each mode. When all agents IDs are set to 0, $$\chi^2(6, N=3611996 (300 episodes)) = 489, p<2E-16$$. When all agents IDs are set to 1, $$\chi^2(6, N=3659996 (300 episodes)) = 674, p<2E-16$$. This suggests a natural variation in agents' roles between episodes.
 ![](/images/transporters/SD.JPG)
 ![](/images/transporters/SD0.JPG)
 ![](/images/transporters/SD1.JPG)
-*caption*
+*The fractional difference in observed behavioral mode frequencies from expected frequencies. Positive/negative values indicate the agent performed that mode more/less often than what would be expected under the assumption that the frequency of a mode is independent of the agent. Top: all IDs are unique (=0,1,2,3), middle: all IDs set to 0, bottom: all IDs set to 1.*
 
 
 ## Group performance did not benefit from increased specialization
-sfdsdfsf
-sdfs
+As in the previous result, I tested the condition of forcing all IDs to be A) unique (0,1,2,3), B) all equal to 0, and C) all equal to 1. Allowing agents to exhibit their slightly different behaviors did not improve performance.
 ![](/images/transporters/CumulativeR.JPG)
-*caption*
+*Distribution of cumulative rewards (over all agents within one episode). Each point represents reward for one episode. N=300 episodes.*
 
 ## The three behavioral modes shown by the observation vectors' data manifold
-sdfsdfsf
-sdf
+To create a more rich representation of the distinct behavioral modes, I extracted each agent's observations over the course of a single episode. I then used isomap to perform dimensionality reduction on this data. I found that parts of the agent's trajectory when it was carrying different items lied on different sections of this observation data manifold (Fig.). The agents were also moving in opposite directions during the item-carried=0 and item-carried=2 modes, in order to receive and deliver the items properly.
 ![](/images/transporters/agent0_item.JPG)
-*caption*
-sdfsdf
-sdf
+*Fig. Each point represents one observation of one agent during a single episode containing 4 agents. Red: carrying item 2, green: carryin item 1, blue: empty-handed.*
+
 
 ![](/images/transporters/agent0xcomp.JPG)
-*caption*
+*Fig. Same data as above, viewed from the same angle, but colorized by the x component of the agent's forward-facing vector. Agents were moving towards the sink box (+x) when carrying item 2 and moving towards the source box (-x) when empty handed in order to obtain a new item 1.*
+
+# Discussion and Conclusion
+While I had suspected that providing ID numbers would cause agents to learn different policies, these policies were not different enough to cause agents to specialize strongly on any particular behavior. The overall behavior is more "messy" than I had predicted. With a set of 4 agents, you could imagine an optimal solution to this problem in which agents form an ocillatory pattern. Two of the agents might consistently grab item 1, pass it, and then walk back to the source box and repeat. This does not happen; the agents actions are noisy and not always perfect. And this makes the behvior look a lot more like a real life group of people trying to coordinate to solve a problem. 
+ ![](/images/transporters/modetrack.JPG)
+ *Fig. Item-carried over time for each of the 4 agents used in inference mode. The pattern of switching tends to be chaotic and lacks any periodicity.*
