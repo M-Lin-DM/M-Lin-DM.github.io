@@ -5,7 +5,7 @@ layout: "single"
 permalink: /Transporters/
 tagline: ""
 header:
-  overlay_image: /images/transporters/gameCapture.jpg
+  overlay_image: /images/transporters/Capture.jpg
 mathjax: "true"
 ---
 # In Brief
@@ -148,7 +148,7 @@ As in the previous result, I tested the condition of forcing all IDs to be A) un
 ## The three behavioral modes shown by the observation vectors' data manifold
 To create a more rich representation of the distinct behavioral modes, I extracted each agent's observations over the course of a single episode. I then used isomap to perform dimensionality reduction on this data. I found that parts of the agent's trajectory when it was carrying different items lied on different sections of this observation data manifold (Fig.). The agents were also moving in opposite directions during the item-carried=0 and item-carried=2 modes, in order to receive and deliver the items properly.
 
-![](/images/transporters/agent0_itemsmall.jpg)
+![](/images/transporters/agent0_item.jpg)
 
 <!-- <img src="/images/transporters/agent0_item.jpg"
      alt="Observed and expected freqs table" 
@@ -157,7 +157,7 @@ To create a more rich representation of the distinct behavioral modes, I extract
 *Fig. Each point represents one observation of one agent during a single episode containing 4 agents. Red: carrying item 2, green: carryin item 1, blue: empty-handed.*
 
 
-![](/images/transporters/agent0xcompsmall.jpg)
+![](/images/transporters/agent0xcomp.jpg)
 
 <!-- <img src="/images/transporters/agent0xcomp.jpg"
      alt="Observed and expected freqs table" 
