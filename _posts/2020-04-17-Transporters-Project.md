@@ -124,11 +124,12 @@ When the source and sink boxes are position-swapped, the agents fail to adapt (g
 
 ## Partially unshared parameters led to (mildly) increased specialization
 There were detectable but small differences in the behavior of agents with different IDs. The table shows the number of timesteps that each agent spent carrying each item. This is a simple way to quantify the difference in preferences for behavioral modes or tasks. A chi-squared test of independence showed a significant relationship between the ID number and item-carried $$\chi^2(6, N=3611996 (300 episodes)) = 1425, p<2E-16$$. This means the proportion of time spent in each mode differed significantly between agents. 
-<!-- ![](/images/transporters/tablefofe.jpg) -->
 
-<img src="/images/transporters/tablefofe.jpg"
+![](/images/transporters/tablefofe.jpg)
+
+<!-- <img src="/images/transporters/tablefofe.jpg"
      alt="Observed and expected freqs table" 
-     width=900/>
+     width=900/> -->
 
 *Fig. Observed $$f_o$$ and expected $$f_e$$ frequencies of timesteps each agent spent carrying each item. Expected is computed assuming independence of the variables.*
 
@@ -146,19 +147,21 @@ As in the previous result, I tested the condition of forcing all IDs to be A) un
 
 ## The three behavioral modes shown by the observation vectors' data manifold
 To create a more rich representation of the distinct behavioral modes, I extracted each agent's observations over the course of a single episode. I then used isomap to perform dimensionality reduction on this data. I found that parts of the agent's trajectory when it was carrying different items lied on different sections of this observation data manifold (Fig.). The agents were also moving in opposite directions during the item-carried=0 and item-carried=2 modes, in order to receive and deliver the items properly.
-<!-- ![](/images/transporters/agent0_item.jpg) -->
 
-<img src="/images/transporters/agent0_item.jpg"
+![](/images/transporters/agent0_itemsmall.jpg)
+
+<!-- <img src="/images/transporters/agent0_item.jpg"
      alt="Observed and expected freqs table" 
-     width=900/>
+     width=900/> -->
 
 *Fig. Each point represents one observation of one agent during a single episode containing 4 agents. Red: carrying item 2, green: carryin item 1, blue: empty-handed.*
 
 
-<!-- ![](/images/transporters/agent0xcomp.jpg) -->
-<img src="/images/transporters/agent0xcomp.jpg"
+![](/images/transporters/agent0xcompsmall.jpg)
+
+<!-- <img src="/images/transporters/agent0xcomp.jpg"
      alt="Observed and expected freqs table" 
-     width=900/>
+     width=900/> -->
 
 *Fig. Same data as above, viewed from the same angle, but colorized by the x component of the agent's forward-facing vector. Agents were moving towards the sink box (+x) when carrying item 2 and moving towards the source box (-x) when empty handed in order to obtain a new item 1.*
 
