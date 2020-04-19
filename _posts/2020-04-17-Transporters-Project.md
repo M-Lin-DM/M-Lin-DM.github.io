@@ -31,7 +31,9 @@ The inclusion of a one-hot encoded ID implicitly allows agents **partially unsha
      alt="NN diagram showing output of a one-hot vector input" 
      width=900/> -->
 
-<img src="{{ site.url }}{{ site.baseurl }}/images/transporters/onehotNN.jpg" alt="">
+<img src="{{ site.url }}{{ site.baseurl }}/images/transporters/onehotNNsmall.jpg" alt="">
+tt
+![](/images/transporters/onehotNNsmall.jpg)
 
 
 *Fig. Red lines highlight the subset of weights available to an agent with ID=2 (of 3). During training and inference, no other agents will use these weights as that input node will be set to 0.*
