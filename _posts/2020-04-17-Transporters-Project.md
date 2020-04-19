@@ -33,11 +33,8 @@ The inclusion of a one-hot encoded ID implicitly allows agents **partially unsha
 
 <!-- <img src="{{ site.url }}{{ site.baseurl }}/images/transporters/onehotNNsmall.jpg" alt=""> -->
 
-tt
-
 ![](/images/transporters/onehotNNsmall.jpg)
 
-<!-- ![](/images/transporters/meancumRscaling.jpg) -->
 
 
 *Fig. Red lines highlight the subset of weights available to an agent with ID=2 (of 3). During training and inference, no other agents will use these weights as that input node will be set to 0.*
@@ -48,11 +45,12 @@ In multi-agent reinforcement learning and agent-based modeling, it is important 
 I train agents to acheive a group-level objective: transporting items across a space as fast as possible. The game is designed so that it **requires** cooperation to complete the task. Specifically, agents can retrieve green spheres (item 1) from the source box, but they can't deposit them in the sink box themselves. Instead they must pass it to an empty-handed neighbor, who can then deposit it in the sink box. That is, only those who have received item 1 from a neighbor can deposit it. This is achieved by automatically converting the item 1 to item 2 when it is received.
 
 To obtain item 1, pass it, and deposit item 2, agents must collide. The item transfer occurs at the same frame the collision occured. A reward of +1 is triggered by each of the three events and by no other collision types. In the case of passing, the reward is given to both the passer and receiver at the time of collison. Therefore, cooperation is not only required but incentivized directly. This contrasts with several works in multi-agent deep RL which achieve emergent cooperative behavior (ie without direct incentivization or requirement.) My study is directed more towards emergent diversity in a necessarily cooperative task.
-<!-- ![](/images/transporters/transfer_on_contact.jpg) -->
 
-<img src="/images/transporters/transfer_on_contact.jpg"
+![](/images/transporters/transfer_on_contactsmall.jpg)
+
+<!-- <img src="/images/transporters/transfer_on_contactsmall.jpg"
      alt="object transfer steps diagram" 
-     width=900/>
+     width=900/> -->
 
 *Fig. Agents (yellow cylinders) obtain and transfer items (spheres) at the moment of collision. An empty handed agent (item =0) must first retrieve item 1 from the source box (green). It can then transfer it to an empty-handed agent in step 2. The item will then self-convert to item 2 (red sphere). Finally the agent can deposit item 2 in the sink box (red cylinder)*
 
