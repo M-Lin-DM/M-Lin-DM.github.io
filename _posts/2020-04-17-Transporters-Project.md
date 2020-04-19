@@ -27,9 +27,12 @@ This begs the question of what would happen if agents were trained using observa
 ### Partially unshared neural network parameters 
 The inclusion of a one-hot encoded ID implicitly allows agents **partially unshared** neural network parameters in the first dense layer. An agent has exclusive access to a subset of weights in this layer (fig below). In the single-agent case, the influence of a single binary state is evidently enough to induce a different behavioral mode. This suggests that including one-hot encoded IDs may be sufficient to allow emergent behavioral differentiation through the process of training. **In this project I assess the impact of providing each agent their own one-hot encoded ID number as part of their observation.**
 
-<img src="/images/transporters/onehotNN.jpg"
+<!-- <img src="/images/transporters/onehotNN.jpg"
      alt="NN diagram showing output of a one-hot vector input" 
-     width=900/>
+     width=900/> -->
+
+<img src="{{ site.url }}{{ site.baseurl }}/images/transporters/onehotNN.jpg" alt="">
+
 
 *Fig. Red lines highlight the subset of weights available to an agent with ID=2 (of 3). During training and inference, no other agents will use these weights as that input node will be set to 0.*
 ## Obligatory vs. Emergent Cooperation
@@ -40,6 +43,7 @@ I train agents to acheive a group-level objective: transporting items across a s
 
 To obtain item 1, pass it, and deposit item 2, agents must collide. The item transfer occurs at the same frame the collision occured. A reward of +1 is triggered by each of the three events and by no other collision types. In the case of passing, the reward is given to both the passer and receiver at the time of collison. Therefore, cooperation is not only required but incentivized directly. This contrasts with several works in multi-agent deep RL which achieve emergent cooperative behavior (ie without direct incentivization or requirement.) My study is directed more towards emergent diversity in a necessarily cooperative task.
 <!-- ![](/images/transporters/transfer_on_contact.jpg) -->
+
 <img src="/images/transporters/transfer_on_contact.jpg"
      alt="object transfer steps diagram" 
      width=900/>
@@ -117,6 +121,7 @@ When the source and sink boxes are position-swapped, the agents fail to adapt (g
 ## Partially unshared parameters led to (mildly) increased specialization
 There were detectable but small differences in the behavior of agents with different IDs. The table shows the number of timesteps that each agent spent carrying each item. This is a simple way to quantify the difference in preferences for behavioral modes or tasks. A chi-squared test of independence showed a significant relationship between the ID number and item-carried $$\chi^2(6, N=3611996 (300 episodes)) = 1425, p<2E-16$$. This means the proportion of time spent in each mode differed significantly between agents. 
 <!-- ![](/images/transporters/tablefofe.jpg) -->
+
 <img src="/images/transporters/tablefofe.jpg"
      alt="Observed and expected freqs table" 
      width=900/>
@@ -138,6 +143,7 @@ As in the previous result, I tested the condition of forcing all IDs to be A) un
 ## The three behavioral modes shown by the observation vectors' data manifold
 To create a more rich representation of the distinct behavioral modes, I extracted each agent's observations over the course of a single episode. I then used isomap to perform dimensionality reduction on this data. I found that parts of the agent's trajectory when it was carrying different items lied on different sections of this observation data manifold (Fig.). The agents were also moving in opposite directions during the item-carried=0 and item-carried=2 modes, in order to receive and deliver the items properly.
 <!-- ![](/images/transporters/agent0_item.jpg) -->
+
 <img src="/images/transporters/agent0_item.jpg"
      alt="Observed and expected freqs table" 
      width=900/>
