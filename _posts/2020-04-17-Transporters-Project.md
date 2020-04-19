@@ -125,7 +125,7 @@ When the source and sink boxes are position-swapped, the agents fail to adapt (g
 ## Partially unshared parameters led to (mildly) increased specialization
 There were detectable but small differences in the behavior of agents with different IDs. The table shows the number of timesteps that each agent spent carrying each item. This is a simple way to quantify the difference in preferences for behavioral modes or tasks. A chi-squared test of independence showed a significant relationship between the ID number and item-carried $$\chi^2(6, N=3611996 (300 episodes)) = 1425, p<2E-16$$. This means the proportion of time spent in each mode differed significantly between agents. 
 
-![](/images/transporters/tablefofe_resz.jpg)
+![](/images/transporters/tablefofe_resz.jpg){: .align-center}
 
 <!-- <img src="/images/transporters/tablefofe.jpg"
      alt="Observed and expected freqs table" 
