@@ -5,7 +5,7 @@ layout: "single"
 permalink: /Transporters/
 tagline: ""
 header:
-  overlay_image: /images/transporters/capture.jpg
+  overlay_image: /images/transporters/gameCapture.jpg
 mathjax: "true"
 ---
 # In Brief
