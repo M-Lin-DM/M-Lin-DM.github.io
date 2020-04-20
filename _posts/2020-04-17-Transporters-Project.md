@@ -112,6 +112,9 @@ branch 1: $$\{0, 1, 2\}$$ = {no rotation, rotate counterclockwise, rotate clockw
 
 
 # Results
+[![video link](/images/transporters/Capturevideo2.jpg)](https://www.youtube.com/watch?v=HL5jwUn-ShA&feature=youtu.be "Multi-agent Transporters"){: .align-center}
+
+ [Link to Repository](https://github.com/M-Lin-DM/Multi-Agent-Transporters)
 
 ## Scaling the game: Including more agents increases performance
 Agent behavior is robust to scaling the group size under the range I tested. In order to deploy more agents than 6, I simply set all agent IDs = 0 (for all group sizes). Making all agents identicle did not significantly affect their performance. 
@@ -166,6 +169,12 @@ To create a more rich representation of the distinct behavioral modes, I extract
 *Fig. Same data as above, viewed from the same angle, but colorized by the x component of the agent's forward-facing vector. Agents were moving towards the sink box (+x) when carrying item 2 and moving towards the source box (-x) when empty handed in order to obtain a new item 1.*
 
 # Discussion and Conclusion
-While I had suspected that providing ID numbers would cause agents to learn different policies, these policies were not different enough to cause agents to specialize strongly on any particular behavior. The overall behavior is more "messy" than I had predicted. With a set of 4 agents, you could imagine an optimal solution to this problem in which agents form an ocillatory pattern. Two of the agents might consistently grab item 1, pass it, and then walk back to the source box and repeat. This does not happen; the agents actions are noisy and not always perfect. And this makes the behvior look a lot more like a real life group of people trying to coordinate to solve a problem. 
- ![](/images/transporters/modetrack.jpg)
- *Fig. Item-carried over time for each of the 4 agents used in inference mode. The pattern of switching tends to be chaotic and lacks any periodicity.*
+While I had suspected that providing ID numbers would cause agents to learn different policies, these policies were not different enough to cause agents to specialize strongly on any particular behavior. This makes sense considering that there is no real benefit to developing different behaviors in this problem. There is no clear advantage gained by having a preference for actions that would lead to one type of behavior over the other. 
+
+![](/images/transporters/modetrack.jpg)
+ *Fig. Item-carried over time for each of the 4 agents in inference mode. The pattern of switching tends to be chaotic and lacks any periodicity.*
+
+The overall behavior is more "messy" than I had predicted. With a set of 4 agents, you could imagine an optimal solution to this problem in which agents form an ocillatory pattern. Two of the agents might consistently grab item 1, pass it, and then walk back to the source box and repeat. The other two could then focus on receiving item 2 and depositing it in a repeating cycle that is matched in phase with the first two agents. 
+
+This does not happen; the agents actions are noisy and not always perfect. This makes them look a lot more like a real-life group of people trying their best to coordinate themselves. Despite being far from a mathematically perfect cycle, a system like this is probably much more adaptive. Embracing that chaos is a positive step towards intelligent multi-agent systems.
+ 
