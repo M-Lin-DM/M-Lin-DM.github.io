@@ -14,11 +14,11 @@ My [Data Manifold Convolution repository](https://github.com/M-Lin-DM/Data-Manif
 ![eq](/images/DMC/Captureeq.PNG)
 ![draw](/images/DMC/drawing.PNG)
 
-Several variants of this function are possible. *DMC_asymmetric.m* computes a convolution value from the 'perspective' of only one of the sets. 
+Several variants of this function are possible. `DMC_asymmetric.m` computes a convolution value from the 'perspective' of only one of the sets. 
 
 # Example in 2D
 
-[sample data](https://github.com/M-Lin-DM/Data-Manifold-Convolution/tree/master/sample%20data) includes a sample convolution kernel shaped like the letter N and a set of points shaped like some words. In *Explore_DMC_parameters.m* you can test out DMC by convolving the "N" over the entire data set. Spoiler alert:
+[sample data](https://github.com/M-Lin-DM/Data-Manifold-Convolution/tree/master/sample%20data) includes a sample convolution kernel shaped like the letter N and a set of points shaped like some words. In `Explore_DMC_parameters.m` you can test out DMC by convolving the "N" over the entire data set. Spoiler alert:
 
 ![sdf](/images/DMC/conv_with_Npoints.PNG)
 ![sdf](/images/DMC/convolved%20data%20DMC_symmetric.png)
