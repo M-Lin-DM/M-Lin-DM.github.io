@@ -1,0 +1,16 @@
+# to pull in changes and reset the local repo to that:
+(when in the folder)
+git fetch --all
+git reset --hard origin/master
+
+to push changes to github:
+(when in the folder)
+git add .
+git commit -m "description"
+git push -u origin master
+
+#jekyll (when in folder)
+bundler exec jekyll serve
+
+#list files
+dir

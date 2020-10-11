@@ -1,0 +1,7 @@
+#installing ruby jekyll on new machine
+if one ruby installer isnt working, try others (with the dev-kit). the one that worked on the ryzen pc was the most recent (2.7) 
+go ahead and uninstall others and dont try to install Msys2 manually.
+
+must install git
+
+follow mike Dane tutorial for the rest. eg installing bundler, jekyll 

@@ -1,0 +1,17 @@
+make a directory and clone a repo into it
+
+mkdir D:\Unity\COProjectfiles
+D:
+cd D:\Unity\COProjectfiles  #go into that folder created
+
+git clone https://github.com/M-Lin-DM/M-Lin-DM.github.io.git # clone repo into a NEW folder  in that directory
+
+cd M-Lin-DM.github.io  #go into created folder
+
+# copy the files you want into that folder--------------------
+
+git add .
+
+git commit -a -m "Adding my existing state"
+
+git push origin master #write the contents to the online repo

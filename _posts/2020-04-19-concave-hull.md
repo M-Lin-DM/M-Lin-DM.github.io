@@ -7,7 +7,14 @@ tagline: ""
 mathjax: "true"
 ---
 
+
+[Link to Repository](https://github.com/M-Lin-DM/Concave-Hulls)
+See **hulls.py** and **test_ConcaveHull.py**
+
 # Project Description
+
+
+
 
 Here I have modified João Paulo Figueira's python implementation of hulls.py so that it takes ordinary 2D Cartesian coordinates as input, and returns a concave hull using the minimum possible value of k, the only parameter required by this algorithm [1]. The original code [2] was designed to work with latitude-longitude data, and uses the appropriate distance metrics. My code uses the standard euclidean distance metric and increases k by 1 until a concave hull is found which encloses all points and does not self-intersect.
 
