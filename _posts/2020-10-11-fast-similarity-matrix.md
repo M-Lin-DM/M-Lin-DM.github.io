@@ -64,7 +64,7 @@ Qthresh_coo = coo_matrix(Qthresh)
 | Qthresh     | thresholded dense matrix        | 3.2                 | 3.2E+09                  |
 | Qthresh_coo | sparse version of Qthresh       | 1.37335             | 48                       |
 
-# Algorithm 1: Delegate inner loop baseline algorithm to different workers
+# Algorithm 1: Each processor computes the distances for a single data point
 In this method we allow each CPU worker to compute the distances for a different data point. That is, the inner loop of the baseline algorithm is delegated to one worker so that the rows of the matrix are computed in parallel. This algorithm calls the method `row_similarity` in `Fast_similarity_matrix_func.py`. The function and the data needed by each CPU worker is distributed using `concurrent.futures.ProcessPoolExecutor()`. 
 To do this we must create lists of each parameter and a corresponding list of copies of the data set:  `[dat for _ in range(N)]`. 
 

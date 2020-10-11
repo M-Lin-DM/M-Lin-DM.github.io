@@ -14,3 +14,7 @@ bundler exec jekyll serve
 
 #list files
 dir
+
+#set user identity for git
+  git config --global user.email "mrlin@asu.edu"
+  git config --global user.name "Michael Lin"
