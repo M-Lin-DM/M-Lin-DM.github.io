@@ -141,7 +141,7 @@ The distance matrix can then be computed as
 
 $$W = \sqrt{\sum_{j=1}^D (C_j - C_j^T)^2}$$
 
-![im](/images/Fast_similarity_matrix/algorithm2.png)
+![im](/images/Fast_similarity_matrix/algorithm2_resize.png)
 
 We again use the `concurrent.futures.ProcessPoolExecutor()`. However, this method will not utilize all processors unless the dimensionality of the data exceeds the processor count. Run `multiprocessing.cpu_count()` to check. This time we call the `componentwise_similarity` method.
 
