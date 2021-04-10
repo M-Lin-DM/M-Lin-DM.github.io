@@ -98,7 +98,10 @@ Below is
 ![](/images/VAE_zeroshot/punctured_validation_preds.jpg)
 
 ## Latent space embedding
+dsf
 ![](/images/VAE_zeroshot/banner.jpg){: .align-center}
+
+fd
 ![](/images/VAE_zeroshot/mu_embedding_annotated.jpg){: .align-center}
 
 
