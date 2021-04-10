@@ -1,9 +1,9 @@
 # main links
 main:
-  - title: "About button"
-    url: /urlforpage/
-  - title: "DImRed button name"
-    url: /urlfortestpost/ # put this url as the permalink of the page you are linking to!
+  - title: "About"
+    url: /about/
+  - title: "Posts by Category"
+    url: /categories/ # put this url as the permalink of the page you are linking to!
   # - title: "Sample Posts"
   #   url: /year-archive/
   # - title: "Sample Collections"
@@ -11,17 +11,17 @@ main:
   # - title: "Sitemap"
   #   url: /sitemap/
 
-sidebar:
-- title: "Parent Page A"
-  children:
-    - title: "Child Page A1"
-      url: /urlforpage/
-    - title: "Child Page A2"
-      url: /urlfortestpost/
+# sidebar:
+# - title: "Parent Page A"
+#   children:
+#     - title: "Child Page A1"
+#       url: /urlforpage/
+#     - title: "Child Page A2"
+#       url: /urlfortestpost/
 
-- title: "Parent Page B"
-  children:
-    - title: "Child Page B1"
-      url: /urlforpage/
-    - title: "Child Page B2"
-      url: /urlfortestpost/
+# - title: "Parent Page B"
+#   children:
+#     - title: "Child Page B1"
+#       url: /urlforpage/
+#     - title: "Child Page B2"
+#       url: /urlfortestpost/

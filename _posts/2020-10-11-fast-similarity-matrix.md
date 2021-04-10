@@ -3,7 +3,10 @@ title: "Parallelized Algorithms for computing large Similarity Matricies"
 date: 2020-10-11
 layout: "single"
 permalink: /algorithms/
-tagline: ""
+categories:
+    - Algorithms
+excerpt: "A Comparison of the speed and memory use across three similarity matrix algorithms."
+tagline: "A Comparison of the speed and memory use across three similarity matrix algorithms"
 mathjax: "true"
 ---
 

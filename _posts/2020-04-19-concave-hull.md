@@ -3,6 +3,9 @@ title: "Computing the Concave Hull of a set of points in 2D"
 date: 2020-04-19
 layout: "single"
 permalink: /Concave-hull/
+categories:
+    - Algorithms
+excerpt: "A Concave hull method built for generic 2D data"
 tagline: ""
 mathjax: "true"
 ---

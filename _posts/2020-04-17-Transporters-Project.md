@@ -1,9 +1,12 @@
 --- 
-title: "The impact of rudimentary self-awareness on specialization in a cooperative multi-agent RL setting"
+title: "Collective object transport using multi-agent reinforcement learning"
 date: 2020-04-17
 layout: "single"
 permalink: /Transporters/
-tagline: ""
+categories:
+    - Reinforcement Learning
+excerpt: "The impact of self-awareness on specialization in a cooperative multi-agent RL setting"
+tagline: "The impact of self-awareness on specialization in a cooperative multi-agent RL setting"
 header:
   overlay_image: /images/transporters/screenshot977.jpg
 mathjax: "true"
@@ -34,10 +37,9 @@ The inclusion of a one-hot encoded ID implicitly allows agents **partially unsha
 <!-- <img src="{{ site.url }}{{ site.baseurl }}/images/transporters/onehotNNsmall.jpg" alt=""> -->
 
 ![](/images/transporters/onehotNNsmall.jpg)
-
-
-
 *Fig. Red lines highlight the subset of weights available to an agent with ID=2 (of 3). During training and inference, no other agents will use these weights as that input node will be set to 0.*
+
+
 ## Obligatory vs. Emergent Cooperation
 In multi-agent reinforcement learning and agent-based modeling, it is important to make a distiction between the (more interesting) "emergent" cooperation and what I would call "obligatory" or "prescribed" cooperation. This project uses the latter. I define emergent cooperation as cooperative behavior (agents working together to do a task) which has not been directly incentivized and is not absolutely required to perform well on a task. Obligatory cooperation on the other hand has been strongly incentivized, possibly using rewards that reinforce the cooperative act directly. My project directly reinforces cooperative acts using dense rewards and even makes such acts necessary in order to complete the task. 
 

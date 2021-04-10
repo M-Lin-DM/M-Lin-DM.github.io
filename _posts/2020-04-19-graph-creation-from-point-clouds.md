@@ -3,6 +3,9 @@ title: "Methods for graph creation from point clouds"
 date: 2020-04-19
 layout: "single"
 permalink: /graph-creation/
+categories:
+    - Algorithms
+excerpt: "K-nearest neighbors, Epsilon ball, Tau rule, and 2D lattice graphs"
 tagline: ""
 mathjax: "true"
 ---

@@ -3,9 +3,12 @@ title: "Demonstrating Feasibility of Group-Level Rewards in a Toy Model"
 date: 2020-04-13
 layout: "single"
 permalink: /Thermoregulators/
+categories:
+    - Reinforcement Learning
+excerpt: "How rewards delivered 'by proxy' can teach agents to act in favor of group objectives"
 tagline: "How rewards delivered 'by proxy' can teach agents to act in favor of group objectives"
 header:
-  overlay_image: /images/thermoreg.jpg
+  overlay_image: /images/Thermoregulators/thermoreg.jpg
 mathjax: "true"
 ---
 
@@ -89,14 +92,14 @@ src="https://www.youtube.com/watch?v=GoFEs1gS5X8" frameborder="0"
 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
 allowfullscreen></iframe> -->
 
-[![IMAGE ALT TEXT](/images/thermoreg_thumb.jpg)](https://www.youtube.com/watch?v=GoFEs1gS5X8 "Video Title")
+[![IMAGE ALT TEXT](/images/Thermoregulators/thermoreg_thumb.jpg)](https://www.youtube.com/watch?v=GoFEs1gS5X8 "Video Title")
 
 ## The impact of observation type
 
 I found that the agents were able to learn to maintain a stable $$T_g$$ relative to untrained agents, under all observation types. However, the distribution of temperatures varied between observation types.
 
 **Group Mean $$T_g(t)$$**
-![](/images/meanTg.jpg)
+![](/images/Thermoregulators/meanTg.jpg)
 
 - Agents trained using $$T_p$$ as input (orange dots) remain in a tight cluster, but their mean is biased toward positive values. I found this was consistent across multiple episodes. 
 - Agents trained using $$T_g$$ as input (blue line) showed no bias, but over time developed a large variance among group members. Their $$T_g$$ remained very close to 0 dispite the large spread, indicating they had successfully learned to adjust postion to compensate for other members diverging away from 0.
@@ -104,7 +107,7 @@ I found that the agents were able to learn to maintain a stable $$T_g$$ relative
 - Untrained Agents (random actions) (purple line) exhibit large fluctuations in temperature.
 
 **Standard Deviation of $$T_p$$**
-![](/images/stdev_Tp.jpg)
+![](/images/Thermoregulators/stdev_Tp.jpg)
 
 # Conclusion
 

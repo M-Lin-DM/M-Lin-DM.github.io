@@ -3,6 +3,9 @@ title: "Data Manifold Convolution: a technique for computing similarity between 
 date: 2020-04-19
 layout: "single"
 permalink: /Data-manifold-convolution/
+categories:
+    - Algorithms
+excerpt: ""
 tagline: ""
 mathjax: "true"
 ---
