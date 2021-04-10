@@ -17,7 +17,8 @@ toc_label: "Contents"
 
 **In Brief**
 - In the context of deep generative modeling, **zero-shot learning** can be though of as a model's ability to synthesize images that it received no training data on. This can, in theory, be achieved by combining latent variables in new ways.
-- I perform two experiments in that involve training a Convolutional variational autoencoder (VAE) on a synthetic image dataset drawn from a known, 2D latent space.
+- I perform two experiments in that involve training generative models called Convolutional variational autoencoders (VAE) on a synthetic image dataset, drawn from a known, 2D latent space. 
+- By engineering the latent space directly, I evaluate the VAE's ability to perform zero-shot learning in a highly interpretable experiment.
 - **Experiment 1, Parameter space transects (part 2/3)** | I first remove a region of points from the center of a synthetic image dataset. Then I use the trained VAE to sample images from the removed region. **Result:** The model reconstructs images from the removed region fairly well in only a few cases. Highlights the difficulty of interpolating to new regions of the latent space.
 - **Experiment 2, A Loss function for reducing covariance between latent variables (part 3/3)** | I train the same VAE on the full image dataset. Here I develop and test a modified loss function designed to minimize covariance between variables in the latent space. The purpose of this loss function is to encourage "disentanglement" of the latent variables, such that each variable encodes a qualitatively orthogonal spectrum of image features. **Result:** The intrinsic two-dimensionality of the training data was confirmed by examining its distribution in a 3D latent space (output of the encoder network). The loss function did not force disentanglement of the latent variables.
 - **In this post (part 1/3):** I show how we construct the image dataset with a known latent space.

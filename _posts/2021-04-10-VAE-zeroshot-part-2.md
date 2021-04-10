@@ -15,10 +15,9 @@ toc: true
 toc_label: "Contents"
 ---
 
-***Notice:*** Please see [part 1](/VAE_zeroshot_1/) for an introduction to this project, or if you'd like to see how I created the dataset used here. In this part, I'll set up the ''parameter space transects'' experiment, go over the VAE architecture I used, and show my results. 
-
--Respository for this project: [Github](https://github.com/M-Lin-DM/VAE-zeroshot-learning)
--Jupyter notebook I used for this project: `Train_VAE_sampleweights_constant_variance.ipynb`
+- ***Notice:*** Please see [part 1](/VAE_zeroshot_1/) for an introduction to this project, or if you'd like to see how I created the dataset used here. In this part, I'll set up the ''parameter space transects'' experiment, go over the VAE architecture I used, and show my results. 
+- Respository for this project: [Github](https://github.com/M-Lin-DM/VAE-zeroshot-learning)
+- Jupyter notebook I used for this project: `Train_VAE_sampleweights_constant_variance.ipynb`
 {: .notice--alert}
 
 **In Brief:** In the context of deep generative modeling, **zero-shot learning** can be though of as a model's ability to synthesize images that it received no training data on. This can, in theory, be achieved by combining latent variables in new ways. I generated a synthetic image dataset by drawing from a known latent space. I removed a region of points from this dataset and trained a VAE on the remaining images. I then asked the VAE to sample images along a line extending across the removed region. **Result:** The model reconstructs images from the removed region fairly well in only a few cases. This highlights the difficulty of interpolating to new regions of the latent space.
