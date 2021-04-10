@@ -25,7 +25,7 @@ toc_label: "Contents"
 # Introduction
 Within deep learning, *deep generative modeling* deals with models that can generate new images, sound, text, or other rich forms data that would typically be used as the inputs to deep neural nets. Some of the most famous examples in computer vision include generation of never-before-seen human faces using GANs, "deep dream" images, and the transfer of the artistic style of a painting to a photo (style transfer). In this 3-part series I'm going to focus on a type of generative model called variational autoencoders (VAE). I'll cover experiments where we test VAEs' abilities to perform "zero-shot learning," explained later. An in-depth explanation of VAEs is beyond the scope of this post but I'll mention some of the key points. See these sources which give great intros on VAEs: [Variational autoencoders](https://www.jeremyjordan.me/variational-autoencoders/), [Intuitively Understanding Variational Autoencoders](https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf), [Understanding VAEs](https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73), [Generating new faces with Variational Autoencoders](https://towardsdatascience.com/generating-new-faces-with-variational-autoencoders-d13cfcb5f0a8)
 
-![](/images/VAE_zeroshot/VAE_schematic.png)
+![](/images/VAE_zeroshot/VAE_schematic_resize.png)
 *Fig. Schematic of a basic VAE with all densely connected layers. A vector of means and log(variance) are produced as a two separate heads at the end of the encoder module. The image $$x^k$$ is mapped to latent vector $$z^k$$ by sampling from gaussian distributions parametrized by the means and log(variances).*
 
 
