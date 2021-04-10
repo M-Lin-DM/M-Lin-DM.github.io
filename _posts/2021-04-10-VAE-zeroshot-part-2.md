@@ -6,7 +6,7 @@ permalink: /VAE_zeroshot_2/
 categories:
     - Computer Vision
     - Deep Learning
-excerpt: "Can a VAE reconstruct images from a unseen region of the latent space?"
+excerpt: "Can a VAE reconstruct images from an unseen region of the latent space?"
 tagline: "Walking a path through an unknown region of the latent space"
 header:
   overlay_image: /images/VAE_zeroshot/banner_2.png
@@ -101,7 +101,7 @@ Below is
 ![](/images/VAE_zeroshot/mu_embedding_annotated.png)
 
 
-[![video link](/images/VAE_zeroshot/mu_embedding_thumb.png)](https://www.youtube.com/watch?v=uo8HXx9Ik7k "video"){: .align-center}
+[![video link](/images/VAE_zeroshot/mu_embedding_thumb_resize.png)](https://www.youtube.com/watch?v=uo8HXx9Ik7k "video"){: .align-center}
 
 ## Transect reconstructions
 
