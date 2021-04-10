@@ -18,6 +18,7 @@ toc_label: "Contents"
 ***Notice:*** Please see [part 1](/VAE_zeroshot_1/) for an introduction to this project, or if you'd like to see how I created the dataset used here. In this part, I'll set up the ''parameter space transects'' experiment, go over the VAE architecture I used, and show my results. 
 
 Respository for this project: [Github](https://github.com/M-Lin-DM/VAE-zeroshot-learning)
+Jupyter notebook I used for this project: `Train_VAE_sampleweights_constant_variance.ipynb`
 
 **In Brief:** A model's ability to synthesize images that it received no training data on can be considered **zero-shot learning** in the context of deep generative modeling. I generated a synthetic image dataset by drawing from a known latent space. I removed a region of points from this dataset and trained a VAE on the remaining images. I then asked the VAE to sample images along a line extending across the removed region. **Result:** The model reconstructs images from the removed region fairly well in only a few cases. This highlights the difficulty of interpolating to new regions of the latent space.
 {: .notice--info}
@@ -34,11 +35,11 @@ Each transect consists in 15 equally-spaced points in parameter space. In `Gener
 
 
 <figure>
-	<a href="/images/VAE_zeroshot/Transects_nopred.png"><img src="/images/VAE_zeroshot/Transects_nopred.png"></a>
+	<a href="/images/VAE_zeroshot/Transects_nopred.jpg"><img src="/images/VAE_zeroshot/Transects_nopred.jpg"></a>
 </figure>
 
 # VAE architecture and hyperparameters
-Using the Keras-Tensorflow framework, I tested many variations on the architecture and eventually found a version which produced both excellent reconstructions and a 2-dimensional latent vector embedding within a 3D latent space. The Jupyter notebook I used for this project is called `Train_VAE_sampleweights_constant_variance.ipynb`
+Using the Keras-Tensorflow framework, I tested many variations on the architecture and eventually found a version which produced both excellent reconstructions and a 2-dimensional latent vector embedding within a 3D latent space. 
 <figure>
 	<a href="/images/VAE_zeroshot/arch.png"><img src="/images/VAE_zeroshot/arch.png"></a>
 </figure>
@@ -106,5 +107,5 @@ Below is
 ## Transect reconstructions
 
 <figure>
-	<a href="/images/VAE_zeroshot/Transects_xk_cap.png"><img src="/images/VAE_zeroshot/Transects_xk_cap.png"></a>
+	<a href="/images/VAE_zeroshot/Transects_xk_cap_resize.png"><img src="/images/VAE_zeroshot/Transects_xk_cap_resize.png"></a>
 </figure>
