@@ -111,6 +111,6 @@ df
 ## Transect reconstructions
 dfgg
 <figure>
-	<a href="/images/VAE_zeroshot/Transects_xk_cap.png"><img src="/images/VAE_zeroshot/Transects_xk_cap.png"></a>
+	<a href="/images/VAE_zeroshot/Transects_xk_cap_resize.jpg"><img src="/images/VAE_zeroshot/Transects_xk_cap_resize.jpg"></a>
 </figure>
 sdfs
