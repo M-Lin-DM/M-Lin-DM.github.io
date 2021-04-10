@@ -95,11 +95,11 @@ class Add_VAE_Loss(keras.layers.Layer):
 
 ## Reconstructions from test set
 Below is 
-![](/images/VAE_zeroshot/punctured_validation_preds.png)
+![](/images/VAE_zeroshot/punctured_validation_preds.jpg)
 
 ## Latent space embedding
-![](/images/VAE_zeroshot/banner.png)
-![](/images/VAE_zeroshot/mu_embedding_annotated.png)
+![](/images/VAE_zeroshot/banner.jpg)
+![](/images/VAE_zeroshot/mu_embedding_annotated.jpg)
 
 
 [![video link](/images/VAE_zeroshot/mu_embedding_thumb_resize.png)](https://www.youtube.com/watch?v=uo8HXx9Ik7k "video"){: .align-center}
