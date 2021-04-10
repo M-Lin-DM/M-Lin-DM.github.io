@@ -41,7 +41,7 @@ Each transect consists in 15 equally-spaced points in parameter space. In `Gener
 # VAE architecture and hyperparameters
 Using the Keras-Tensorflow framework, I tested many variations on the architecture and eventually found a version which produced both excellent reconstructions and a 2-dimensional latent vector embedding within a 3D latent space. 
 <figure>
-	<a href="/images/VAE_zeroshot/arch.png"><img src="/images/VAE_zeroshot/arch.png"></a>
+	<a href="/images/VAE_zeroshot/arch.jpg"><img src="/images/VAE_zeroshot/arch.jpg"></a>
 </figure>
 
 * It turned out that only 3 latent variables were needed to produce good reconstructions. I got all results using batch size=8 and the Adam optimizer.
