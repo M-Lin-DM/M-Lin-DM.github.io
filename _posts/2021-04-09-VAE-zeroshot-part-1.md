@@ -90,5 +90,5 @@ for j = 1:length(data_punctured)
 end
 ```
 ## Sample of training images
-![](/images/VAE_zeroshot/trainsamp.JPG)
+![](/images/VAE_zeroshot/trainsamp_rs.jpg)
 *Fig. Sample of processed training images*
