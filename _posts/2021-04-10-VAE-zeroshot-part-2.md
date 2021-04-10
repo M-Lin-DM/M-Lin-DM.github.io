@@ -106,9 +106,11 @@ fd
 
 
 [![video link](/images/VAE_zeroshot/mu_embedding_thumb_resize.png)](https://www.youtube.com/watch?v=uo8HXx9Ik7k "video"){: .align-center}
+df
 
 ## Transect reconstructions
-
+dfgg
 <figure>
-	<a href="/images/VAE_zeroshot/Transects_xk_cap_resize.png"><img src="/images/VAE_zeroshot/Transects_xk_cap_resize.png"></a>
+	<a href="/images/VAE_zeroshot/Transects_xk_cap.png"><img src="/images/VAE_zeroshot/Transects_xk_cap.png"></a>
 </figure>
+sdfs
