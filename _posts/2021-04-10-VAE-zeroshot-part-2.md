@@ -38,7 +38,7 @@ I construct 3 transects that cross the $$(a,b)$$ parameter space. $$a$$ and $$b$
 plotted in training images. Each transect crosses directly over the center of the "hole" region, where points were removed from the training set. 
 
 ![](/images/VAE_zeroshot/PTransects.png)
- <font size="4"> Fig. All training images visualized in the parameter space. P1, P2, P3 are transects of 15 equally spaced points crossing the entire parameter space.</font>   <br />
+ <font size="2"> Fig. All training images visualized in the parameter space. P1, P2, P3 are transects of 15 equally spaced points crossing the entire parameter space.</font>   <br />
 
 Each transect consists in 15 equally-spaced points in parameter space. In `Generate_Transects.m` I simply plot each polar curve along the transect and save as an image into a folder. This produces 15 images per transect that I will feed to the VAE later.
 
@@ -66,7 +66,7 @@ I used the "punctured" dataset containing 4299 training images and 211 validatio
 ## Training
 I trained the model for about 30 epochs using minibatch gradient descent, with batch size 8, using the Adam optimizer with a learning rate of $$\eta = 0.0001$$. The computation was performed using a NVDIA GeForce RTX2080 Ti GPU. 
 
-I stopped training approximately at the point the validation loss came close to the loss on the training data. If the training data loss drops below the validation loss, this may be a sign of overfitting. I chose not to use a testing dataset for simplicity and to just reduce the amount of code. Predictions in the figures below were made using images from the validation set.
+I stopped training approximately at the point the validation loss came close to the loss on the training data. If the training data loss drops below the validation loss, this may be a sign of overfitting. I chose not to use a testing dataset for simplicity. It reduces the amount of code. Predictions in the figures below were made using images from the validation set.
 ## Latent space dimensionality `latent_dim=3`
 It turned out that only 3 latent variables were needed to produce good reconstructions.
 ## Constant Variance
@@ -94,7 +94,7 @@ On the layer `z_mean` producing latent component means $$\mu_i$$, I found that a
 I tried applying sample weights so that my "starfish" shapes with shallower waves (lower $$b$$) were weighted more heavily in the loss function. This had little effect on the quality of the reconstruction. However sample weights might have greater with other datasets. The quality was more strongly impacted by other factors such as using different activation functions on the log-variance layer (before it was removed). The figure below colorizes the weight used for each sample. I used a scheme in which weights were directly proportional to $$b$$ and occupied the range $$[0,1]$$. <br /><br /> *Note: I couldn't get Tensorflow's built-in sample weight generator to work, so I had to provide `sample_weights` as a separate input to the model. This was done by constructing a customized `tf.data.Dataset` object which can generate input data as tuples. These tuples contain batches of images, their corresponding weights, and intended output images.*
 
 ![](/images/VAE_zeroshot/sample_weights.png)
-<font size="4">Fig. Weighted Training dataset visualized in parameter space. Color indicates the values sample_weights applied to each sample in the loss function. Yellow is higher value, purple is low. This weighting scheme causes the loss function to increased by more when errors are made on samples with shallower waves (lower b)</font> <br />
+<font size="2">Fig. Weighted Training dataset visualized in parameter space. Color indicates the values sample_weights applied to each sample in the loss function. Yellow is higher value, purple is low. This weighting scheme causes the loss function to increased by more when errors are made on samples with shallower waves (lower b)</font> <br />
 
 
 ## Standard VAE loss (almost)
@@ -142,12 +142,12 @@ encoder = Model(detached_encoder_input, x, name='encoder')
 When viewed in the 3D latent space, the set of all training images forms a intrinsically 2-dimensional (sheet-like) data manifold (See YouTube [video](https://www.youtube.com/watch?v=uo8HXx9Ik7k)). This is unsurprising considering that 
 1. The images are drawn from a 2D parameter space 
 2. They are sampled densely enough to cover the entire space of possibilities (besides in the hole region)
-3. The images change continuously: small changes in the parameters lead to small changes in the corresponding images. This means too that any image $$x^k$$ can be smoothly deformed into another $$x^l$$ by "walking" across the dataset in the direction of the desired destination image. This is essentially what each transect of images does, denoted by P.
+3. The images change continuously: small changes in the parameters lead to small changes in the corresponding images. This means too that any image $$x^k$$ can be smoothly deformed into another $$x^l$$ by "walking" across the dataset in the direction of the desired destination image. This is essentially what each transect of images, denoted by P, does.
 ![](/images/VAE_zeroshot/banner.jpg){: .align-center}
-<font size="4">Fig. Latent space embedding with transects. Several transect images on P2 are connected by a pink line to their corresponding latent vector.</font> <br />
+<font size="2">Fig. Latent space embedding with transects. Several transect images on P2 are connected by a pink line to their corresponding latent vector.</font> <br />
 
 ![](/images/VAE_zeroshot/mu_embedding_annotated.jpg){: .align-center}
-<font size="4">Fig. Latent space embedding with transects. I added a beige line to illustrate the boundary around the hole region and outer edge of the sheet.</font> <br />
+<font size="2">Fig. Latent space embedding with transects. I added a beige line to illustrate the boundary around the hole region and outer edge of the sheet.</font> <br />
 
 [![video link](/images/VAE_zeroshot/mu_embedding_thumb_resize.png)](https://www.youtube.com/watch?v=uo8HXx9Ik7k "video"){: .align-center}
 Click to view video
