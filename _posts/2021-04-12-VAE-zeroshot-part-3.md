@@ -193,7 +193,7 @@ Below are a sample of reconstructions made using images from the validation set 
 I ran multiple trainings of my model using the new loss function. For all of these, a two-dimensional data manifold emerged in the latent space. This is to be expected since the training data was composed of images drawn from a 2D parameter space (see [part 1](/VAE_zeroshot_1/)). I found that the KL divergence loss and entanglement loss were more likely to cause the edges of the embedding to curve inward than to orient the embedding along any particular axes. This is obviously not intended. However, the beauty of this experiment is the fact that we can directly observe what is happening with the embedding and the effect of the loss function on it. I believe the final orientation of the embedding after training is more sensitive to the initial conditions of the weights in the network. It was not impacted as strongly as I had hoped by the loss term. 
 
 I kept the parameters $$\beta$$ and $$\gamma$$ (controlling the importance of the KL and entanglement loss) small in order to preserve the 2-dimensionality of the embedding. If these parameters were increased, we would end up with a distribution closer to a multivariate gaussian, which is potentially not true to the data. The intrinsic two-dimensionality of the data suggests there are likely other datasets for which the entanglement loss is more applicable. 
-[![video link](/images/VAE_zeroshot/data_full_emb_thumb.png)](https://www.youtube.com/watch?v=At9AI-ztdqg "video"){: .align-center}
+[![video link](/images/VAE_zeroshot/data_full_emb_thumb.jpg)](https://www.youtube.com/watch?v=At9AI-ztdqg "video"){: .align-center}
 Click to view video
 
 # Discussion | The problem with disentangled representations
