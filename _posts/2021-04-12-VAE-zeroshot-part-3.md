@@ -20,7 +20,7 @@ toc_label: "Contents"
 - Jupyter notebook used: `Train_VAE_entanglement_loss.ipynb`
 {: .notice--warning}
 
-**In Brief:** I first generated a synthetic image dataset by drawing from a known latent space. I train a Variational autoencoder (VAE), equipped with a modified loss function, to reconstruct input images from this dataset. This loss function includes an additional term which penalizes embeddings with high covariance among the latent variables. Its purpose is to encourage so-called "disentanglement" of latent variables, so that each variable might encode a qualitatively distinct high-level image feature. In this post, I'll propose and evaluate this modified loss function, recap the VAE architecture I used, and show my results. **Result:** Due to the intrinsic 2-dimensionality of the dataset, the loss function is less suitable in this case. However, the experiment illustrates how the structure of the training data itself could be harnessed to isolate disentangled latent factors. I'll propose hypotheses on such methods.
+**In Brief:** I first generated a synthetic image dataset by drawing from a known latent space. I train a Variational autoencoder (VAE), equipped with a modified loss function, to reconstruct input images from this dataset. This loss function includes an additional term which penalizes embeddings with high covariance among the latent variables. Its purpose is to encourage so-called "disentanglement" of latent factors, so that each latent variable might encode a qualitatively distinct high-level image feature. In this post, I'll propose and evaluate this modified loss function, recap the VAE architecture I used, and show my results. **Result:** Due to the intrinsic 2-dimensionality of the dataset, the loss function may be less suitable in this case. However, the experiment illustrates how the structure of the latent embedding itself could be harnessed to identify latent factors.
 {: .notice--success}
 
 # Introduction
@@ -36,11 +36,11 @@ Fig. Figure Borrowed from [2](https://towardsdatascience.com/intuitively-underst
 </figure> -->
 
 ## Disentanglement
-One holy grail of deep generative modeling is to get a model to automatically learn **"disentangled" latent factors**. The authors of the Deepmind paper [Early Visual Concept Learning with Unsupervised Deep Learning](https://arxiv.org/abs/1606.05579) define "disentangled" as such:
+One challenge deep generative modeling is to get a model to automatically learn **"disentangled" latent factors**. The authors of the Deepmind paper [Early Visual Concept Learning with Unsupervised Deep Learning](https://arxiv.org/abs/1606.05579) define "disentangled" as such:
 > We wish to learn a representation where single latent units are sensitive to changes in single
 generative factors, while being relatively invariant to changes in other factors.
 
-**NOTE:** At this point it's important to point out that "generative/latent *factors*," in a mathematical sense, refer to directions in latent space along which the image properties change. Whereas, "latent *units*" or "latent *variables*" will refer to the actual components of the latent vector that is output at the bottleneck of the VAE.
+**NOTE:** At this point it's important to point out that "generative/latent *factors*," in a mathematical sense, refer to directions in latent space along which high-level image features change. Whereas, "latent *units*" or "latent *variables*" will refer to the actual components of the latent vector that is output at the bottleneck of the VAE.
 {: .notice--warning}
 
 In other words, a disentangled set of latent factors will be such that each **latent variable** or **latent unit** encodes a qualitatively orthogonal image feature. Using the language of linear algebra/vector spaces, entangled factors occur when linear combinations of basis vectors (i.e. combinations of latent variables) are needed to define the direction of a latent factor. A disentangled representation is highly desirable for three reasons that I can see.
