@@ -45,7 +45,7 @@ In other words, a disentangled set of latent factors will be such that each **la
 
 The authors provided this illustration and caption, which is in the same spirit as the third point.
 
-![](/images/VAE_zeroshot/zeroshot_transfer.jpg)
+![](/images/VAE_zeroshot/zeroshot_transfer700.jpg)
 >"Models are unable to generalise to data outside of the convex hull of the training
 distribution (light blue line) unless they learn about the data generative factors and recombine them
 in novel ways"
@@ -186,7 +186,7 @@ There were no sample weights used for this experiment.
 
 ## Reconstructions from validation set
 Below are a sample of reconstructions made using images from the validation set as input. The validation images start at file index 4500, and I'm showing the first 20 images. The left columns are the ground truth and right columns are reconstructions of those images. The reconstructions are about the same in quality as when I used the punctured dataset in part 2.
-![](/images/VAE_zeroshot/datafull_validation_preds.png)
+![](/images/VAE_zeroshot/datafull_validation_preds.jpg)
 
 
 ## Latent space embedding
