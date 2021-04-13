@@ -62,7 +62,7 @@ To make the concept of latent factors concrete, the Deepmind authors worked with
 
 <!-- ![](/images/VAE_zeroshot/disentang.jpg) -->
 <figure>
-	<a href="/images/VAE_zeroshot/disentang.jpg"><img src="/images/VAE_zeroshot/disentang.jpg"></a>
+	<img src="/images/VAE_zeroshot/disentang.jpg"></a>
 </figure>
 
 ## Research Goal
@@ -118,7 +118,6 @@ Binary Crossentropy loss:
 The average is taken over all pixels in the input and output image. Both must be normalized so that all pixels have value in [0,1].
 
 ![](/images/VAE_zeroshot/Binary_cross_entropy_loss_perpoint.png)
-
 *Fig. $$L_{crossent}$$ as a function of the ground truth $$x_p$$ and predicted $$\hat{x_p}$$ values for a single pixel in the image. Yellow is higher value.*
 
 Kullback Leibler divergence loss:
