@@ -59,7 +59,7 @@ Essentially, identifying each latent factor with a specific latent vector compon
 
 To make the concept of latent factors concrete, the Deepmind authors worked with a similar synthetic dataset consisting of images of a shape with varying x-y positions, scales, and rotations. They found that by tuning the importance of the KL loss component in the loss function, it was possible to learn disentangled latent factors. Specifically, the model encoded x-position, y-position, scale, and two types of rotation each as a separate latent unit output (borrowed Fig below). This meant that by shifting the value of one latent vector component, they could affect, for e.g., the x-position of the shape, without affecting any other of the image features. 
 
-![](/images/VAE_zeroshot/disentang.jpg)
+![](/images/VAE_zeroshot/disentang.png)
 <!-- <figure>
 	<img src="/images/VAE_zeroshot/disentang.jpg"></a>
 </figure> -->
