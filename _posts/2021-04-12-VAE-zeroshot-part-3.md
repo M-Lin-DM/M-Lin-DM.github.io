@@ -27,14 +27,12 @@ toc_label: "Contents"
 ## Latent factors
 In the context of deep generative modeling, **latent factors** or **generative factors** can be thought of as spectra of high-level features in the set of objects comprising the dataset. These abstract spectra are called "latent" or "generative" since they effectively underlie or give rise to the objects in the dataset---each factor may represent a continuum of some particular property of the object. In the case of VAEs, these continuums are captured in the distribution of all data when it is mapped into the **latent space** (i.e. the ambient space of vectors output at the middle of the bottleneck). Using the example from my previous post, if a generative model such as a VAE was trained on human faces, one latent factor might encode whether or not a person is wearing glasses. As shown in the figure below, it would then be possible to identify the direction of this continuum in latent space and, using vector arithmetic, transform the latent vector corresponding to a face into the latent vector of the same face, plus glasses. Once the face+glasses latent vector is formed, you would simply use the decoder network to generate the corresponding image.
 
-
 ![](/images/VAE_zeroshot/Captureglasses.jpg)<br />
 Fig. Figure Borrowed from [2](https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf)
 <!-- <figure>
 	<a href="/images/VAE_zeroshot/Captureglasses.jpg"><img src="/images/VAE_zeroshot/Captureglasses.jpg"></a>
     <figcaption>Fig. Figure Borrowed from https://towardsdatascience.com/intuitively-understanding-variational-autoencoders-1bfe67eb5daf.</figcaption>
 </figure> -->
-
 
 ## Disentanglement
 One holy grail of deep generative modeling is to get a model to automatically learn **"disentangled" latent factors**. The authors of the Deepmind paper [Early Visual Concept Learning with Unsupervised Deep Learning](https://arxiv.org/abs/1606.05579) define "disentangled" as such:
@@ -60,10 +58,10 @@ Essentially, identifying each latent factor with a specific latent vector compon
 
 To make the concept of latent factors concrete, the Deepmind authors worked with a similar synthetic dataset consisting of images of a shape with varying x-y positions, scales, and rotations. They found that by tuning the importance of the KL loss component in the loss function, it was possible to learn disentangled latent factors. Specifically, the model encoded x-position, y-position, scale, and two types of rotation each as a separate latent unit output (borrowed Fig below). This meant that by shifting the value of one latent vector component, they could affect, for e.g., the x-position of the shape, without affecting any other of the image features. 
 
-<!-- ![](/images/VAE_zeroshot/disentang.jpg) -->
-<figure>
+![](/images/VAE_zeroshot/disentang.jpg)
+<!-- <figure>
 	<img src="/images/VAE_zeroshot/disentang.jpg"></a>
-</figure>
+</figure> -->
 
 ## Research Goal
 The authors seemed to apply the same the loss function used in traditional VAEs. In this project, I develop and test a modified loss which is explicitly designed to encourage disentanglement of latent factors. The loss effectively penalizes both positive and negative covariance between pairs of variables in the latent space, while maintaining the original constraints imposed by the reconstruction loss and KL divergence loss.
