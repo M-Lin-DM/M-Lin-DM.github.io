@@ -50,7 +50,7 @@ In order to place my texture extraction method in the wider context of deep gene
 
 ### Filter visualization
 One example of this is convolutional filter visualization methods based on *activation maximization*. In this process we begin with a trained CNN (for example, a network like VGG trained for image classification). We then define a loss function based entirely on how strongly some particular filter responds. This can be accomplished by setting the loss equal to the sum over all pixels in the filter's corresponding feature map or channel. The gradient of this loss with respect to an input image is then applied to the image itself. Over many iterations, the image (initialized as noise), changes such that it more strongly activates the filter being visualized. There is a wonderful guide to this process using keras in this François Chollet [notebook](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/master/5.4-visualizing-what-convnets-learn.ipynb) and this [Distill article](https://distill.pub/2017/feature-visualization/)
-![](/images/FCN_Lichen_textures/imagelearing.png)
+![](/images/FCN_Lichen_textures/imagelearing.jpg)
 *Fig. See [Distill article](https://distill.pub/2017/feature-visualization/)*
 
 ### Style transfer
