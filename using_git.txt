@@ -2,7 +2,7 @@ make a directory and clone a repo into it
 
 mkdir D:\Unity\COProjectfiles
 D:
-cd D:\Unity\COProjectfiles  #go into that folder created
+cd D:\M-Lin-DM.github.io  #go into that folder created
 
 git clone https://github.com/M-Lin-DM/M-Lin-DM.github.io.git # clone repo into a NEW folder  in that directory
 
