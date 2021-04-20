@@ -79,9 +79,9 @@ neural network, which has learned to classify different types of ImageNet images
 
 What made this work novel was that the generated images looked more like realistic natural images than what had been done previously (Figure 1). 
 
-![](/images/FCN_Lichen_textures/preferred.png)
+![](/images/FCN_Lichen_textures/preferred.jpg)
 
 The previous methods had used neuron activation maximization and image learning alone. However, in this work the generator from a pre-trained GAN effectively *conditioned* the generated image to look like a natural image. This conditioning was applied by optimizing an input latent vector(shown in red in Figure 2) so that a particular class (in this case "candel") was strongly activated. To me, this is a very interesting approach since you are essentially obtaining the image as a byproduct of optimizing something else. It also illustrates the core concept of "conditioning" in generative modelling.
 
-![](/images/FCN_Lichen_textures/preferred_net.png)
+![](/images/FCN_Lichen_textures/preferred_net.jpg)
 *Figures borrowed from [Synthesizing the preferred inputs for neurons in neural networks via deep generator networks](https://arxiv.org/abs/1605.09304)*
