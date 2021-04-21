@@ -50,12 +50,12 @@ I'll first cover the dataset and training process for step 1, and then explain t
  I constructed the training data from 148 macro photos of lichen that I had taken while travelling across the United states (mostly Arizona and Washington). In order to focus on textures, each training image was partitioned into some number of non-overlapping square sub-images with sizes ranging from ~300x300 to ~600x600. During training all were resized to 512x512x3 pixel patches, for a total of 4323 patches (1.92GB). I did not use any data augmentation but rotating by multiples of $$90^\circ$$ would be reasonable for these type of images. Screenshots of the patches are below.
 
 <figure>
-	<a href="/images/FCN_Lichen_textures/Capture_data2.png"><img src="/images/FCN_Lichen_textures/Capture_data2.png"></a>
+	<a href="/images/FCN_Lichen_textures/Capture_data2.jpg"><img src="/images/FCN_Lichen_textures/Capture_data2.jpg"></a>
 	<figcaption>Sample of training images. Click to enlarge.</figcaption>
 </figure>
 
 <figure>
-	<a href="/images/FCN_Lichen_textures/Capture_data1.png"><img src="/images/FCN_Lichen_textures/Capture_data1.png"></a>
+	<a href="/images/FCN_Lichen_textures/Capture_data1.jpg"><img src="/images/FCN_Lichen_textures/Capture_data1.jpg"></a>
 	<figcaption>Sample of training images. Click to enlarge.</figcaption>
 </figure>
 
@@ -151,6 +151,8 @@ fetch_loss_and_grads = K.function([learned_image], [Loss, grads])
 ```
 
 # Results
+In this algorithm we optimized the input image such that it produces a similar GAP descriptor as a target image. 
+
 <figure>
 	<a href="/images/FCN_Lichen_textures/textures.png"><img src="/images/FCN_Lichen_textures/textures.png"></a>
 	<figcaption>Sample of training images. Click to enlarge.</figcaption>
