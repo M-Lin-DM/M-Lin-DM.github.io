@@ -87,7 +87,7 @@ Despite its simplicity, this network does not simply learn an identity mapping, 
 |----------------------|--------------------|------------|-----------------------------|---------------|---------------------------------------|
 | 4323 RGB images,  1.92GB | Mean squared error. Unsupervised training (ground truth = input) | 8          | Adam, learning rate = 0.001 | 512 x 512 x 3 | Trainable: 148387, Non-trainable: 448 |
 
-![](/images/FCN_Lichen_textures/GAP.png)
+![](/images/FCN_Lichen_textures/GAP.jpg)
 *Fig. FCN architecture and GAP feature vector. Blue boxes are convolutional layers and green are batch norm layers. NOTE: batch norm layers are drawn as thin slices to save space, but their output has the same shape as the preceding layer. The GAP vector is taken by performing global average pooling of all convolutional layer channels. This produces one vector element per channel. The full vector is a concatenation of all such GAP values.*
 
 ![](/images/FCN_Lichen_textures/arch.jpg)
