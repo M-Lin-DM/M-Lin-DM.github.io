@@ -154,12 +154,12 @@ fetch_loss_and_grads = K.function([learned_image], [Loss, grads])
 In this algorithm we optimized the input image such that it produces a similar GAP descriptor as a target image. 
 
 <figure>
-	<a href="/images/FCN_Lichen_textures/textures.png"><img src="/images/FCN_Lichen_textures/textures.png"></a>
+	<a href="/images/FCN_Lichen_textures/textures.jpg"><img src="/images/FCN_Lichen_textures/textures.jpg"></a>
 	<figcaption>Sample of training images. Click to enlarge.</figcaption>
 </figure>
 
 <figure>
-	<a href="/images/FCN_Lichen_textures/manual_clusts.png"><img src="/images/FCN_Lichen_textures/manual_clusts.png"></a>
+	<a href="/images/FCN_Lichen_textures/manual_clusts.jpg"><img src="/images/FCN_Lichen_textures/manual_clusts.jpg"></a>
 	<figcaption>Sample of training images. Click to enlarge.</figcaption>
 </figure>
 
