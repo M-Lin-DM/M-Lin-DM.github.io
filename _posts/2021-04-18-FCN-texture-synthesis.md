@@ -7,7 +7,7 @@ categories:
     - Computer Vision
     - Deep Learning
 excerpt: "Extracting textures from natural images"
-tagline: "Extracting textures from natural images"
+tagline: "Extracting textures from natural images using fully convolutional networks"
 header:
   overlay_image: /images/FCN_Lichen_textures/banner.png
 mathjax: "true"
@@ -15,10 +15,15 @@ toc: true
 toc_label: "Contents"
 ---
 
+- Repository for this project: [Github](https://github.com/M-Lin-DM/Image-learning-based-Texture-Synthesis)
+- python file for training ConvNet: `FCN512_2.py`
+- Jupyter notebooks used for image learning and plots: `Learn_image.ipynb`, `Generate_plots.ipynb`
+{: .notice--warning}
+
 **In Brief** 
 - In deep generative modeling, **Texture synthesis** is the process of creating novel texture images. **Texture extraction** involves taking a natural image and producing images with qualitatively similar texture properties. 
-- In this project, I develop a novel texture extraction model that uses image-learning-based techniques. This make it similar to something like the original neural style transfer process. However, I employ a texture descriptor based on **global average pooling** across convolutional channels. This descriptor effectively captures how all convolutional filters in a (pre-trained) fully convolutional network (FCN) are activated. I first train a generative FCN (structured like an autoencoder) on a lichen photo dataset that I created. I then iteratively optimize a texture image until its texture descriptor vector matches that of a target image.
-- **Result:** When learning a new texture image, my model captures the color distribution of the target image well. The spatial features in the learned image do not reflect those in the target image very well. Reasons for this are discussed.
+- In this project, I develop a novel texture extraction model that uses image-learning-based techniques. This makes it similar to something like the original neural style transfer process. However, I employ a texture descriptor based on **global average pooling** across convolutional channels. This descriptor effectively captures how all convolutional filters in a (pre-trained) fully convolutional network (FCN) are activated. I first train a generative FCN (structured like an autoencoder) on a lichen photo dataset that I created. I then iteratively optimize a texture image until its texture descriptor vector matches that of a target image.
+- **Result:** When learning a new texture image, my model captures the color distribution of the target image well. The spatial features in the learned image do not reflect those in the target image very well. However, the nature of the training data had an obvious impact on the appearance of textures that could be generated.
 - **In part 1/2 (this post):** I'll give a broad overview of the different paradigms in deep generative modeling, as well as some alternative texture extraction models from the literature that had better performance. This is useful since it classifies my own model and contrasts it with fundamentally different methods such as GANs.
 - **In part 2/2:** I'll cover my dataset, network architecture, image learning algorithm, and results.
 {: .notice--success}
@@ -35,7 +40,7 @@ many images with similar properties.
 
 In this project I develop and evaluate a novel texture extraction method that is **image-learning-based**, meaning we optimize (learn) the pixel values of an image directly by iteratively applying gradients to the image. This procedure is in the same spirit as convolutional filter visualization and neural style transfer, covered in the sections below. 
 
-I ask whether a novel texture descriptor based on global average pooling across all convolutional channels can capture qualitative features of the texture in a target image. 
+I ask whether a novel texture descriptor based on **global average pooling** across all convolutional channels can capture qualitative features of the texture in a target image. I also ask how the original data that the convolutional network was trained on affect the textures that can be generated.
 {: .notice--warning}
 
 The learned texture image is optimized such that, when fed into a pre-trained fully convolutional network (FCN), it activates filters in a similar way as the target image. That is, after image learning, feeding the target image and the learned image to the FCN should produce similar texture descriptor vectors. The FCN is an autoencoder that was trained to reconstruct its inputs. It was trained on a dataset of lichen macro photography that I created. In order to focus on textures, each training image is a 512 x 512 pixel patch from one of the full-sized photos.
@@ -43,19 +48,26 @@ The learned texture image is optimized such that, when fed into a pre-trained fu
 # A (partial) Taxonomy of Generative Models
 In order to place my texture extraction method in the wider context of deep generative modelling, I'm going to describe a few of the major paradigms that I've come across, along with examples of each. These categories refer to the way that the actual image synthesis step takes place, disregarding all steps leading up to it (such as training a model). I can summarize them as follows.
 1. **Image learning:** optimizing (i.e. learning) the pixel values of an image directly by iteratively applying gradients to the image. Typically the gradient of some loss function is taken with respect to the input image itself. The resulting gradient tensor has the same shape as the image being learned and it is added to the image until the loss is minimized.
-2. **Single-forward-pass:** The image is generated by a single forward pass of some data through a generator network. The input to the generator network is often a latent vector or tensor, which encodes higher-level features of the image being generated in a compressed format.
-3. **Intermediate product:** The image being generated is the output of an intermediate layer in a model. There is one key [example](https://arxiv.org/abs/1605.09304) I'll reference later which does not fit into the first two paradigms. 
+2. **Single-forward-pass:** The image is generated by a single forward pass of some data through a generator network that tends to involve upsampling. The input to the generator network is often a latent vector or tensor, which encodes higher-level features of the image being generated in a compressed format.
+3. **Intermediate product:** The image being generated is the output of an intermediate layer in a model. The image may be a *byproduct* of optimizing some loss function that does not involve the image itself. There is one key [example](https://arxiv.org/abs/1605.09304) I'll reference later which does not fit into the first two paradigms. 
 
 ## Image learning
 
 ### Filter visualization
-One example of this is convolutional filter visualization methods based on *activation maximization*. In this process we begin with a trained CNN (for example, a network like VGG trained for image classification). We then define a loss function based entirely on how strongly some particular filter responds. This can be accomplished by setting the loss equal to the sum over all pixels in the filter's corresponding feature map or channel. The gradient of this loss with respect to an input image is then applied to the image itself. Over many iterations, the image (initialized as noise), changes such that it more strongly activates the filter being visualized. There is a wonderful guide to this process using keras in this François Chollet [notebook](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/master/5.4-visualizing-what-convnets-learn.ipynb) and this [Distill article](https://distill.pub/2017/feature-visualization/)
+One instance of image learning is convolutional filter visualization. In this algorithm we begin with a trained CNN (for example, a network like VGG trained for image classification). We then define a loss function based entirely on how strongly some particular filter responds. This can be accomplished by setting the loss equal to the sum over all pixels in the filter's corresponding feature map or channel. The gradient of this loss with respect to an input image is then applied to the image itself. Over many iterations, the image (initialized as noise), changes such that it more strongly activates the filter being visualized. The process is called *activation maximization*. There is a wonderful guide to this process using keras in this François Chollet [notebook](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/master/5.4-visualizing-what-convnets-learn.ipynb) and this [Distill article](https://distill.pub/2017/feature-visualization/)
 ![](/images/FCN_Lichen_textures/imagelearing.jpg)
 *Fig. See [Distill article](https://distill.pub/2017/feature-visualization/)*
 
 ### Style transfer
-Another notable example that uses image learning is the original [style transfer algorithm](https://arxiv.org/abs/1508.06576). My method (see [part 2/2](/FCN_Lichen_textures_2/)) takes a very similar approach to this. Without going too in depth, style transfer uses a loss function composed of two main components: a content loss and a style loss. The content loss measures the structural similarity between the image being learned and a target 'content' image. The style loss measures the similarity between style descriptors derived from the learned image and a third, 'style image' (whose style will be transferred to the learned image). The style descriptor is based on gram matrices that contain information on the relationships among convolutional channels. Ultimately, the three images (learned image, content image, and style image) are sent through a pre-trained model and the gradient of the loss is taken with respect to the learned image. Finally, the gradient is applied to the learned image, the updated image is sent back into the model to compute the new loss, and the cycle repeats. This was a extremely condensed summary.. Please see the papers and this [Notebook](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/master/8.3-neural-style-transfer.ipynb) for a guide to implementation in keras.
+Another notable example that uses image learning is the original [style transfer algorithm](https://arxiv.org/abs/1508.06576). My method (see [part 2/2](/FCN_Lichen_textures_2/)) takes a very similar approach to this. Without going too in depth, style transfer uses a loss function composed of two main components: a content loss and a style loss. The content loss measures the structural similarity between the image being learned and a target 'content' image. The style loss measures the similarity between style descriptors derived from the learned image and a third, 'style image.' (The style of the style image will be transferred to the learned image). The style descriptor is based on gram matrices that contain information on the relationships among convolutional channels. Ultimately, the three images (learned image, content image, and style image) are sent through a pre-trained model and the gradient of the loss is taken with respect to the learned image. Finally, the gradient is applied to the learned image, the updated image is sent back into the model to compute the new loss, and the cycle repeats. This was obviously an extremely condensed summary.. Please see the papers and this [Notebook](https://github.com/fchollet/deep-learning-with-python-notebooks/blob/master/8.3-neural-style-transfer.ipynb) for a guide to implementation in keras.
 ![](/images/FCN_Lichen_textures/st2.jpg)
+
+### DeepDream
+The famous deep dream images are also produced by image-learning methods. The input image is incrementally adjusted so that it more strongly activates high-level neurons usually involved in classification.
+ 
+![](/images/FCN_Lichen_textures/deepdream.png)
+
+*Fig. [https://en.wikipedia.org/wiki/DeepDream](https://en.wikipedia.org/wiki/DeepDream)*
 
 ## Single-forward-pass
 This group of methods ultimately generate an image using a single forward pass through a trained **generator** network. Examples include the decoder network in variational autoencoders (VAEs) and the generator network in generative adversarial networks (GANs). Another example is what you could call "fast style transfer," where style transfer is framed as an image transformation problem instead of an image optimization process. In these cases, the network parameters needed to generate an image were typically learned prior to the image synthesis step.
