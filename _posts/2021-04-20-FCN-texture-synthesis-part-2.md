@@ -93,7 +93,7 @@ FCN = keras.Model(FCN_input, FCN_output, name='FCN')
 ![](/images/FCN_Lichen_textures/GAP.jpg)
 **Fig GAP.** *FCN architecture and GAP feature vector. Blue boxes are convolutional layers and green are batch norm layers. NOTE: batch norm layers are drawn as thin slices to save space, but their output has the same shape as the preceding layer. The GAP vector is taken by performing global average pooling of all convolutional layer channels. This produces one vector element per channel. The full vector is a concatenation of all such GAP values.*
 
-![](/images/FCN_Lichen_textures/arch.jpg)
+![](/images/FCN_Lichen_textures/arch2.jpg)
 *Fig. Tensorflow model summary*
 
 # Image-learning Algorithm
