@@ -6,8 +6,8 @@ permalink: /FCN_Lichen_textures_1/
 categories:
     - Computer Vision
     - Deep Learning
-excerpt: "Extracting textures from natural images"
-tagline: "Extracting textures from natural images using fully convolutional networks"
+excerpt: "Using fully convolutional networks to synthesize textures from natural images"
+tagline: "Using fully convolutional networks to synthesize textures from natural images"
 header:
   overlay_image: /images/FCN_Lichen_textures/banner.png
 mathjax: "true"
@@ -64,7 +64,7 @@ Another notable example that uses image learning is the original [style transfer
 
 ### DeepDream
 The famous deep dream images are also produced by image-learning methods. The input image is incrementally adjusted so that it more strongly activates high-level neurons usually involved in classification.
- 
+
 ![](/images/FCN_Lichen_textures/deepdream.png)
 
 *Fig. [https://en.wikipedia.org/wiki/DeepDream](https://en.wikipedia.org/wiki/DeepDream)*
