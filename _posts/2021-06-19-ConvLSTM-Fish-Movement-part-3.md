@@ -40,10 +40,10 @@ After image processing, converting from video to images, and down-sampling, I ob
 | validation | 3593     | 6.66       | 2           | 9.76       |
 | testing    | 5367     | 9.95       | 2.98        | 16.3       |
 
- ![](/images/ConvLSTM_forcasting/observation_tank.jpg)
+![](/images/ConvLSTM_forcasting/observation_tank_1000.jpg)
 *Fig. Unprocessed Video frame*
 
- ![](/images/ConvLSTM_forcasting/00479.png)
+![](/images/ConvLSTM_forcasting/00479.png)
 
 *Fig. Processed video frame. An example of the images given to the model*
 
@@ -66,7 +66,7 @@ ds_train_flip_V = ds_train.map(lambda x, targ: (tf.image.flip_up_down(x), targ))
 # concatenate datasets:
 ds_train = ds_train.concatenate(ds_train_flip_HV).concatenate(ds_train_flip_H).concatenate(ds_train_flip_V)
 ```
- ![](/images/ConvLSTM_forcasting/validation_imgs.jpg)
+ ![](/images/ConvLSTM_forcasting/validation_imgs_1000.jpg)
 
 *Fig. Sample of images from validation set. Images in the training and test set have the same file name format, with the first frame being 00000.png*
 # Input Tensors
@@ -128,10 +128,10 @@ From the method `compute_targets` below, we take the sum of the absolute differe
 ```python
 y_tilde[t] = np.sum(np.abs(img_array_1 - img_array_0))/np.prod(img_array_0.shape)
 ```
- ![](/images/ConvLSTM_forcasting/ytilde_drawing.jpg)
+ ![](/images/ConvLSTM_forcasting/ytilde_drawing_1000.jpg)
 *Fig. How $$\tilde{y_t}$$ is computed. $$X$$ represents an image, $$w$$ and $$h$$ are its width and height in pixels. The index $$j$$ correponds to one pixel in the difference image $$\Delta X_t$$.*
 
- ![](/images/ConvLSTM_forcasting/testset_retarget_with_baseline_probabablistic.png)
+![](/images/ConvLSTM_forcasting/testset_retarget_with_baseline_probabablistic.png)
 
 *Fig. Zoomed section of $$\tilde{y_i}$$ timeseries (in test dataset), with ground truth labels and predictions from the baseline algorithm (covered later) Pink points indicate the moment right before a spike in $$\tilde{y_i}$$*
 
@@ -141,7 +141,7 @@ After computing $$\tilde{y_i}$$, the algorithm produces a label based on the dyn
 
 At this point it is important to highlight how the inputs to the labeling algorithm differ from the inputs to the model. This is at the core of how the problem is brought into a self-supervised setting. See the figure below.
 
- ![](/images/ConvLSTM_forcasting/windows_drawing.jpg)
+ ![](/images/ConvLSTM_forcasting/windows_drawing_1000.jpg)
 *Fig. Input windows to each model or algorithm. Actual window sizes used in experiments are shown. Positive ground truth labels are shown as black dots, and the ConvLSTM-based model's predicted probability is colorized. Y-axis indicates $$\tilde{y}$$.*
 
 The rules I chose for labelling were found heuristically by inspecting the data in plots and trying different parameters. I'll write it mathematically first, and then in code. See the figure below for illustration.
@@ -157,7 +157,7 @@ $$R_i \geq c \text{ AND } \tilde{y_i} \leq min(W_i) + bR_i \Rightarrow y_i \left
 
 where $$i$$ is the frame being labeled, $$h=45$$ frames, $$c=0.001$$, and $$b=0.1$$.
 
- ![](/images/ConvLSTM_forcasting/labeling_alg.jpg)
+ ![](/images/ConvLSTM_forcasting/labeling_alg_1000.jpg)
 *Fig.**H** Method for labeling each frame. Here the frame $$i$$ is being labeled as $$y_i=1$$ since it precedes a sudden rise in the speed proxy $$\tilde{y}$$. Color indicates the model predictions $$\hat{y}$$. Frames with a circled dot represent positive ground truth $$y_i=1$$, and without dot represents negative $$y_i=0$$.*
 
 Now in the python code, I label a frame `t` as 1 if 

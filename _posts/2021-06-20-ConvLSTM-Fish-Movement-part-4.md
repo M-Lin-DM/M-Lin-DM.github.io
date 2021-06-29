@@ -27,7 +27,7 @@ One can always gain a high-level understanding, of any model, by just viewing it
 
 I've drawn this schematic based on the vanilla ConvLSTM equations initially presented in the seminal work [Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting (2015)](https://arxiv.org/abs/1506.04214). These are shown below, but please see the paper for details. If you are familiar with the standard LSTM equations, you'll notice many parallels in how the gates are computed. In the case of ConvLSTM, the inputs, hidden states, memory cells, and gates are all 3D tensors. The weights $$W$$, shown in the top two rows of my schematic **ConvLSTM_Cell**, are presented as single symbols in the equations, but in actuality they represent a bank of convolution kernels. This was very confusing to me initially. 
 
- ![](/images/ConvLSTM_forcasting/convLSTM_equations.jpg)
+ ![](/images/ConvLSTM_forcasting/convLSTM_equations_700.jpg)
 *Fig. Unmodified ConvLSTM equations Shi et al. 2015*
 
  ![](/images/ConvLSTM_forcasting/convLSTMhighlevel1_jpg_crop.jpg)
