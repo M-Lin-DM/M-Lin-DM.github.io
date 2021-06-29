@@ -29,7 +29,7 @@ Note: For all results in this post I used the best-performing model, called "**u
 
 Comparing ROC curves demonstrates that the baseline model, which takes $$\tilde{y}$$ as input, just barely outperforms my best version of the ConvLSTM-based model ("upbeat-snowflake-91"). The reasons for this are not obvious, but I will explain later in this post. For example, it is not necessarily due to the model lacking optimized hyperparameters or architecture. Although, that is possible. I believe it has more to do with the way the task was set up/the way the data was labeled.
 
- ![](/images/ConvLSTM_forcasting/ROC.jpg)
+![](/images/ConvLSTM_forcasting/ROC700.jpg)
 
 *Fig. ROC curve for the ConvLSTM model and algorithmic baseline. Higher ROC area under the curve (AUC) generally implies better performance on the dataset. The blue line indicates the ROC curve for a model that outputs totally random probabilities (AUC=0.5). These curves show the relationship between the false positive and true positive rate as you increase the probability threshold $$r$$ used to divide predictions into binary classes. The testing dataset was used to compute both curves.*
 
@@ -47,12 +47,12 @@ I found that hand-tuning the probability threshold to a value in-between $$r_{ac
 | True positive rate: with max Acc, with max J  | 0.099, 0.829   | 0.199, 0.831               |
 | False positive rate: with max Acc, with max J | 0.013, 0.310   | 0.024, 0.289               |
 
- ![](/images/ConvLSTM_forcasting/ACC_RJ_over_threshold.jpg)
+![](/images/ConvLSTM_forcasting/ACC_RJ_over_threshold_700.jpg)
 
 *Fig. Accuracy (top row) and Youden's statistic $$J$$ (bottom row) as a function of the probability threshold $$r$$.*
 
 # Training behavior - the effect of model size
- ![](/images/ConvLSTM_forcasting/loss_auc_subfigs.jpg)
+![](/images/ConvLSTM_forcasting/loss_auc_subfigs_1000.jpg)
 
 *Fig.W Training curves over 5 epochs for the binary crossentropy loss and AUC, on training and validation sets.*
 
@@ -60,21 +60,21 @@ The best three models had training behavior that one would expect. Each was trai
 
 All three models had very similar architecture, but differed in the number and/or size of layers. I was surprised to find that smaller models had better performance on both the training and validation sets. The largest model (yellow) had two stacked ConvLSTM layers, twice the number of convolutional filters in each, and three dense layers at the end. The smallest model (teal) had only a single ConvLSTM layer and dense layer (see [part 4](/ConvLSTM_Fish_4/) for full architecture). In general I found that smaller training sets and larger models tended to overfit faster, which makes sense. The regularizing effect provided by my data augmentation scheme appeared to be essential to getting decent performance. 
 
- ![](/images/ConvLSTM_forcasting/GPU.jpg)
+![](/images/ConvLSTM_forcasting/GPU_1000.jpg)
 
 *Fig.P GPU temperature and Utilization over time. Both reflect the differences in model size.*
 
 # $$\hat{y}$$ Distributions
 
- ![](/images/ConvLSTM_forcasting/yhat.png)
+![](/images/ConvLSTM_forcasting/yhat.png)
 *Fig.**H** Distribution of predicted probabilities $$\hat{y}$$ for deep model (red) and baseline (blue), over the test set.*
 
 
- ![](/images/ConvLSTM_forcasting/rpt6_2.png)
+![](/images/ConvLSTM_forcasting/rpt6_2.png)
 *Fig.**GX** Visualization of model's predicted probabilities $$\hat{y}$$, over a cherry-picked region illustrating large speed spikes. Red/blue indicates higher/lower $$\hat{y}$$. Frames with a circled dot represent positive ground truth $$y_i=1$$, and without dot represents negative $$y_i=0$$. Squares indicate frames classified as positive by the model when using a probability threshold $$r=0.6$$.*
 
 
- ![](/images/ConvLSTM_forcasting/y_hat_stacked.png)
+![](/images/ConvLSTM_forcasting/y_hat_stacked.png)
 *Fig.**Y_hat** Comparison between deep model and baseline predicted probabilities $$\hat{y}$$, for the first 500 frames. Red/blue indicates higher/lower $$\hat{y}$$. Frames with a circled dot are ground truth $$y_i=1$$. Squares indicate frames classified as positive by the model when using a probability threshold $$r=0.6$$. I used $$r=0.6$$ for both models purely coincidentally, not intentionally. The baseline threshold was left at $$r=0.6$$ because this maximized Youden's index.*
 
 
@@ -97,15 +97,15 @@ After training, we expect the ConvLSTM-based model to output higher probabilitie
 
 Nonetheless, I had to create some rule that could be used to decide whether the current frame $$i$$ precedes a burst (1) or does not (0). The rule is ultimately based on statistical features of $$\tilde{y}$$ in a 1.5s window: $$[i, i+45]$$ (see the function called `compute_targets` [see part 3](/ConvLSTM_Fish_3/)). Essentially if $$\tilde{y_i}$$ is low, relative to the values in the 1.5s window, and if the range of those values is above some threshold, I labeled the frame as $$y_i = 1$$.
 
- ![](/images/ConvLSTM_forcasting/labeling_alg.jpg)
+![](/images/ConvLSTM_forcasting/labeling_alg_1000.jpg)
 *Fig.**H** Method for labeling each frame. Here the frame $$i$$ is being labeled as $$y_i=1$$ since it precedes a sudden rise in the speed proxy $$\tilde{y}$$. Color indicates the model predictions $$\hat{y}$$. Frames with a circled dot represent positive ground truth $$y_i=1$$, and without dot represents negative $$y_i=0$$.*
 
 The baseline model uses a simple rule (not machine learning) that is practically identical to the rule used to label the data in the labeling function `compute_targets` [see part 3](/ConvLSTM_Fish_3/)). The difference is that the labeling algorithm has access to the time window $$[i, i+45]$$, while the baseline model `baseline_prediction_probabilistic` has access to the window $$[i-89, i-1]$$. Evidently, the $$\tilde{y}$$ statistics in the window preceding frame $$i$$ carry useful information on the $$\tilde{y}$$'s future trajectory. The baseline model could exploit this to great effect.
 
 >In summary, a very simple function was used to label each frame. This is part of the reason why the baseline can do so well. The labeling algorithm uses speed statistics across the time window $$[i, i+45]$$, while the baseline model makes predictions using the **same statistics** computed over the window $$[i-89, i-1]$$.
 
- ![](/images/ConvLSTM_forcasting/windows_drawing.jpg)
-*Fig. **Input windows.** Input windows to each model or algorithm. Actual window sizes used in experiments are shown. Positive ground truth labels are shown as black dots, and the ConvLSTM-based model's predicted probability is colorized. Y-axis indicates $$\tilde{y}$$.*
+![](/images/ConvLSTM_forcasting/windows_drawing_1000.jpg)
+*Fig.**Input windows.** Input windows to each model or algorithm. Actual window sizes used in experiments are shown. Positive ground truth labels are shown as black dots, and the ConvLSTM-based model's predicted probability is colorized. Y-axis indicates $$\tilde{y}$$.*
 
 ## The baseline had unfair advantages that may not be obtainable in most problems
 The baseline model leveraged both 
