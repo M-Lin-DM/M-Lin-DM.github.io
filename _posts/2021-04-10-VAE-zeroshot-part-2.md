@@ -1,5 +1,5 @@
 --- 
-title: "Zero-shot Learning with VAEs part 2/3: Parameter Space Transects"
+title: "Putting zero-shot learning to the test with VAEs part 2/3: Parameter Space Transects"
 date: 2021-04-10
 # layout: "single"
 permalink: /VAE_zeroshot_2/

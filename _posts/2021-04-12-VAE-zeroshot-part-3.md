@@ -1,5 +1,5 @@
 --- 
-title: "Zero-shot Learning with VAEs part 3/3: A Loss function for learning disentangled latent factors"
+title: "Putting zero-shot learning to the test with VAEs part 3/3: A Loss function for learning disentangled latent factors"
 date: 2021-04-12
 # layout: "single"
 permalink: /VAE_zeroshot_3/

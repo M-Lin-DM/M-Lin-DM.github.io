@@ -13,8 +13,6 @@ header:
 mathjax: "true"
 toc: true
 toc_label: "Contents"
-header-includes:
-  - \usepackage{algorithm2e}
 ---
 
 - ***Notice:*** Please see [part 1](/FCN_Lichen_textures_1/) for an introduction to this project.

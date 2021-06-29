@@ -1,5 +1,5 @@
 --- 
-title: "Zero-shot Learning with VAEs part 1/3: Building the dataset"
+title: "Putting zero-shot learning to the test with VAEs part 1/3: Building the dataset"
 date: 2021-04-09
 # layout: "single"
 permalink: /VAE_zeroshot_1/
