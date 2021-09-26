@@ -137,7 +137,7 @@ y_tilde[t] = np.sum(np.abs(img_array_1 - img_array_0))/np.prod(img_array_0.shape
 
 ## Ground truth labeling algorithm
 After computing $$\tilde{y_i}$$, the algorithm produces a label based on the dynamics of $$\tilde{y_i}; i \in [i, i+h]$$. 
->The idea is to label frames as positive if they precede a sudden spike in swimming velocity (indicated by $$\tilde{y_i}$$). 
+>The idea is to label frames as positive if they precede a sudden spike in mean swimming speed (indicated by $$\tilde{y_i}$$). 
 
 At this point it is important to highlight how the inputs to the labeling algorithm differ from the inputs to the model. This is at the core of how the problem is brought into a self-supervised setting. See the figure below.
 

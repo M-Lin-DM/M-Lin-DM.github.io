@@ -24,7 +24,7 @@ toc_label: "Contents"
 <!-- - To obtain ground truth labels, I converted this problem into a *self-supervised* setting. Roughly, each frame $$i$$ was algorithmically labeled as 1 if the group mean speed $$\tilde{y_i}$$ was low and frame $$i$$ preceded a sufficiently large increase in $$\tilde{y_i}$$ across frames $$[i, i+45]$$. Conversely, frame $$i$$ was labeled as 0 if it did not precede a large increase in speed. The method of computing $$\tilde{y_i}$$ and the full details of the labeling algorithm can be found in [part 3](/ConvLSTM_Fish_3/) -->
 - **Research Goal: Train a ConvLSTM-based model that can take a video clip of fish as input and predict whether or not a burst of motion will occur during the subsequent 1.5 seconds.** (Visually, this burst corresponds to sudden aggressive interactions between two or more fish and a spike in group mean speed.)
 - **Methods:** I first filmed a group of 6 *Serpae tetra* fish from overhead, for 30 mins. I converted this into an image dataset containing ~54000 grayscale frames with 120x160x1 resolution. I trained a ConvLSTM-based model to act as a **frame-by-frame binary classifier**. This recurrent neural network takes as input a 4 second clip of video frames (stacked as a single 4D tensor of shape (time-steps x width x height x channels)) and outputs the probability that a 'spike' in group mean velocity will occur during the next 1.5 seconds (45 frames).
-- **Result:** The model does fairly well at identifying frames that come right before the fish chase each other. It achieves an ROC-AUC of 0.79 and a peak accuracy of 84.44%, beating the algorithmic, baseline classifier (AUC: Peak accuracy:). Using a probability threshold that maximizes Youden's statistic, the model achieved a true positive rate of 81.52%, with a false positive rate of 37.36%. 
+- **Result:** The model does fairly well at identifying frames that come right before the fish chase each other. It achieves an ROC-AUC of 0.83 and a peak accuracy of 84.7%, matching the algorithmic, baseline classifier (AUC: 0.84 Peak accuracy: 85.4%). Using a probability threshold that maximizes Youden's statistic, the model achieved a true positive rate of 82.9%, with a false positive rate of 31.0%. 
 <!-- This helps confirm that the fishes' prior spatial configurations and dynamics contain information that is useful in predicting the onset of aggressive interactions. -->
 - This 5-part series is a hybrid between an academic paper and an informal guide to doing a deep learning research project. I will
 1. Introduce the problem we're trying to solve and explain why deep learning/ConvLSTMs constitute a novel approach to it. (This post) 
@@ -34,7 +34,7 @@ toc_label: "Contents"
 {: .notice--success}
 
 # Guide to Github Respository: "Convolutional-LSTMs-for-Motion-Forcasting"
-- Repository for this project: [Github](link)
+- Repository for this project: [Github](https://github.com/M-Lin-DM/Convolutional-LSTMs-for-Motion-Forcasting)
 - `train_ConvLSTM_time_channels_with_augmentation.py` -- Python file for building and training the ConvLSTM and creating the inputs data generator
 - `Compute_targets.ipynb` -- Jupyter notebook for generating ground truth labels (for single-channel version of the model)
 - `Compute_targets-time-channels.ipynb` -- Jupyter notebook for generating ground truth labels (for "time-channels" version of the model) and Baseline (algorithmic) model
@@ -122,7 +122,7 @@ In [part 2](/ConvLSTM_Fish_2/) I'll outline the main subtasks needed to take thi
 
 # Hardware, software, and programs used
 **Hardware**
-- Microsoft Windows 10 Home
+- OS: Microsoft Windows 10 Home
 - Graphics card: one NVIDIA RTX 2080Ti, 11GB
 - CPU: AMD Ryzen 9 3900X 12-Core Processor 3.80 GHz
 - Camera: Cannon EOS 80D DSLR

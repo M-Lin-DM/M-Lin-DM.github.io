@@ -89,7 +89,7 @@ All these factors can have an impact on the model's ability to generalize to the
 * form of the input tensor (e.g. single-channel vs time-channels version of the input)
 
 # Training
-With data augmentation, each epoch of the training set took 5h 16m on an NVDIA RTX 2080Ti GPU. I trained the model for 9 epochs, totaling 47 hours 25 min. The minimum validation loss occurred on the 4th epoch and the max validation AUC on the 6th. In the Github repository, I included the best model in terms of validation loss: `checkpoint_tc-augm-best-validation-retarget-no-regr-visionary-serenity`. This model was used in all results figures.
+With data augmentation, each epoch of the training set took 5h 16m on an NVDIA RTX 2080Ti GPU. I trained the model for 9 epochs, totaling 47 hours 25 min. The minimum validation loss occurred on the 4th epoch and the max validation AUC on the 6th. In the Github repository, I included the two best models in terms of validation loss: `checkpoint_tc-augm-best-validation-retarget-no-regr-visionary-serenity` (2nd best, 2-layer) and `checkpoint_tc-augm-best-validation-retarget-upbeat-snowflake-91` (best, 1-layer). "visionary-serenity" is the model described in this section but a simplified version "upbeat-snowflake-91," was used in all results figures. 
 
 | Training Dataset              | Loss               | Batch size | Optimizer                   | input size  | regularizers                          |
 |----------------------|--------------------|------------|-----------------------------|---------------|---------------------------------------|

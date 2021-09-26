@@ -61,7 +61,7 @@ This is the obvious step and it's what I imagine most people think about when th
 The layer object contains other attributes such as `name` and `input_shape` that you can look up in the documentation.
 
 # Hyperparameter tuning
-The time this can take and heartache it can cause can also **not** be underestimated. The ability to get good accuracy on the test set turned out to be shockingly sensitive to many factors such as the learning rate, batch size, model size, class weights, regularization, and data augmentation. This was my biggest surprise in working on this project.
+The time this can take and heartache it can cause can also **not** be underestimated. The ability to get good accuracy on the test set turned out to be shockingly sensitive to many factors such as the learning rate, batch size, model size, class weights, regularization, and data augmentation.
 {: .notice--warning}
 
 Here is where you adjust things like learning rate and the size and number of layers in the model. It is best practice to start with a very small model, check that it can at least overfit on the training set (or a fraction of the training set), and progressively scale up the model. If you are not doing transfer learning (i.e. building a model from scratch), it is tempting to start with a large fancy model. Don't. I've found that the 'capacity' of CNNs to learn complex mappings is often way more than you would think. For example, I believe VGGnet or Alexnet was trained to high accuracy on Imagenet even **when all class labels were randomly swapped!** That is fascinating because it illustrates the capacity of these models to learn extremely turbulent mappings.
