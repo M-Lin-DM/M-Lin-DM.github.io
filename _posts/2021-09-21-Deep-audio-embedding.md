@@ -30,22 +30,46 @@ toc_label: "Contents"
 - **Result:** In a sample of songs from diverse genres, most had similar limit-cycle-like structures when embedded using my method (essentially, a noisy loop, often with multiple "lobes"). In these cases, the model revealed rhythmic sequences that could be heard best in the drums. For songs where this did not occur, the embedding is more complex. My model produces significantly smoother embeddings than a pure autoencoder. However, this only improves forecasting accuracy on a short time scale. 
 
 # GitHub Repositories
-- Deep-Audio-Embedding: [GitHub](link)
-- `train_ConvLSTM_time_channels_with_augmentation.py` -- Python file for building and training the ConvLSTM and creating the inputs data generator
-- `Compute_targets.ipynb` -- Jupyter notebook for generating ground truth labels (for single-channel version of the model)
-- `Compute_targets-time-channels.ipynb` -- Jupyter notebook for generating ground truth labels (for "time-channels" version of the model) and Baseline (algorithmic) model
-- `Analyze_performance-tc-test-data.py` -- Python file for analyzing performance on the test set
-- `Analyze_performance-tc-train-data.py` -- Python file for analyzing performance on a portion of the training set
-- `Evaluate_on_test_set.ipynb` -- Jupyter notebook for making results figures such as ROC and time-series plots.
+
+GitHub -- [Deep-Audio-Embedding](https://github.com/M-Lin-DM/Deep-Audio-Embedding)
+1. Convert a .wav file to spectrogram and save variables
+- `Save-dataset_2sec-window.py` -- Saves spectrogram and other variables needed for step 2. compatible with the 2s sliding window model.
+- `Save-dataset_half-sec-window.py` -- Saves spectrogram and other variables needed for step 2. compatible with the 0.5s sliding window model.
+2. Build and train model on the audio from step 1.
+- `Train_model_2sec-window.py` -- Trains a model that takes a 2s window from the spectrogram as input
+- `Train_model_half-sec-window.py` -- Trains a model that takes a 0.5s window from the spectrogram as input
+3. Load trained model. Extract encoder network. Feed spectrogram data to it and return embedding.
+- `Embed_audio_data_callable.py` -- this is called at the end of `Train_model...py`. It also plots the embedding in 3D.
+4. Plot video of embedding
+- `Play_embedding.py` -- Saves a sequence of video frames where a point moves down the trajectory over time
+5. Train models to forecast in embedding space using the embedding from step 3
+- `train-latent-space-MLP.py` -- Trains an MLP regression model to predict the displacement vector from the position in the embedding space
+- `train-latent-space-LSTM.py` -- Trains an LSTM-based regression model to predict the displacement vector from a sequence of positions in the embedding space
+6. Use model trained in step 5 to forecast a path from some initial condition
+- `Forecast-in-latent-space-KNN.py` -- Forecasts and plots a path in embedding space using a KNN-based method
+- `Forecast-in-latent-space-MLP.py`-- Forecasts and plots a path in embedding space using the MLP trained in step 5
+- `Forecast-in-latent-space-LSTM.py`-- Forecasts and plots a path in embedding space using LSTM trained in step 5
+7. Measure divergence of numerical solutions from true path (using the KNN-based forecasting model)
+- `Numerical-solution-divergence.py` -- Forecasts a path at a set of initial conditions. Measures distance between projected and actual path. Returns an average curve.
+- `Numerical-solution-divergence-Plots.ipynb` -- Plots the divergence over the number of forecasting steps taken. This shows how fast error grows on average.
 {: .notice--warning}
 
-- Deep-Video-Embedding: [GitHub](link)
-- `train_ConvLSTM_time_channels_with_augmentation.py` -- Python file for building and training the ConvLSTM and creating the inputs data generator
-- `Compute_targets.ipynb` -- Jupyter notebook for generating ground truth labels (for single-channel version of the model)
-- `Compute_targets-time-channels.ipynb` -- Jupyter notebook for generating ground truth labels (for "time-channels" version of the model) and Baseline (algorithmic) model
-- `Analyze_performance-tc-test-data.py` -- Python file for analyzing performance on the test set
-- `Analyze_performance-tc-train-data.py` -- Python file for analyzing performance on a portion of the training set
-- `Evaluate_on_test_set.ipynb` -- Jupyter notebook for making results figures such as ROC and time-series plots.
+
+GitHub -- [Deep-Video-Embedding](https://github.com/M-Lin-DM/Deep-Video-Embedding)
+1. Build and train model
+- `train_model.py`
+2. Use trained model from step 1 to embed video as trajectory in embedding space
+- `Embed-data.py`
+3. Plot video of embedding
+- `Play_embedding.py` -- Saves a sequence of video frames where a point moves down the trajectory over time.
+4. Train an LSTM-based model to forecast in embedding space using the embedding from step 2
+- `train-latent-space-LSTM.py` -- Trains an LSTM-based regression model to predict the displacement vector from a sequence of positions in the embedding space
+5. Forecast and plot a trajectory from a random initial condition in embedding space
+- `Forecast-in-latent-space.py`
+6. Load forecasted trajectory from step 5 and plot over embedding in 3D
+- `Plot-with-ZForecast.py` 
+7. Evaluate performance of forecasting LSTM
+- `Evaluate-LSTM-on-test.py` -- computes the mean squared error and mean cosine similarity between true and predicted displacement vectors in embedding space
 {: .notice--warning}
 
 # Introduction
@@ -118,7 +142,6 @@ I used the simplest possible method for finding a numerical solution for the sak
 Finally, I measure how the forecasted trajectory diverges from the actual trajectory by taking an average over 10% of all initial conditions. At each initial condition I forecast for 30 steps and record the distance between the forecasted and true $$z_i$$ at step $$i$$. This distance $$\delta_i$$ is plotted over $$i$$ and compared between the two embeddings.
 
 ![](/images/DAE/delta_schematic transparaent.png)
-*Fig. Fishes' viewpoint from inside the observation tank.*
 
 ## Forecasting in the embedding space
 ![](/images/DAE/KNN_local_flow trans.png)
@@ -130,7 +153,7 @@ The first step in forecasting in the embedding space is to find a function $$f$$
 [Youtube video](fsdfd)
 
 ## Song Embeddings
-![](/images/DAE/applause_2.png)
+![](/images/DAE/applause_2 resize.jpg)
 *Fig. **Applause** "Embedded segment from "Applause" by Lady Gaga. Green circles can be ignored; they are only used to synchronize audio in the corresponding video.*
 
 I embedded a sample of songs from diverse genres and rhythmic patterns. I [synchronized them with their audio](fsdfd) in Sony Movie Studio 16 Platinum. Watching and listening carefully is the best way to get a sense of why the embeddings look the way they do! 
@@ -146,13 +169,15 @@ Recall that I conditioned the encoder by adding $$L_{forecast}$$ to the loss fun
 
 In the figure below is the embedding of a clip from "No Place to Go" by Eilen Jewell. (Right) comes from a pure convolutional autoencoder and (left) comes from placing the additional forecasting condition on the encoder. 
 
-![](/images/DAE/NPTG R vs RF.png)
+![](/images/DAE/NPTG R vs RF resize.jpg)
 
 *Fig. **NPTG-R-RF** Embeddings of "No Place to Go" by Eilen Jewell using a 0.5s window. (left) Using model trained with both losses $$L_{forecast}$$ and $$L_{recon}$$ on. I.e. encoder network was conditioned on forecasting. (right) Using model trained with only $$L_{recon}$$ on. I.e. pure autoencoder.*
 
 ## Effect of window size
 I experimented with two windows that were a factor 4x apart in width: 2s and 0.5s. Their embeddings differ dramatically. A 2s window (meaning 2s of audio is compressed to a single point) produced much smoother trajectories and captured longer time scale musical transitions. An embedding made with 0.5s window is much more expressive, capturing shorter time scale patterns, as one would expect. Below are the 2s (left) and 0.5s (right) embeddings of "Concerto for violin No. 4 in F Minor, Op. 8, RV 297 Winter I. Allegro non molto" by Antoni Vivaldi.
-![](/images/DAE/vivaldi half vs 2.png)
+
+
+![](/images/DAE/vivaldi half vs 2 resize.jpg)
 *Fig. **Vivaldi-half-two** "Concerto for violin No. 4 in F Minor, Op. 8, RV 297 Winter I. Allegro non molto" by Antoni Vivaldi. Sliding window length: 2s (left) and 0.5s (right).*
 
 ## Divergence of forecasted trajectory
