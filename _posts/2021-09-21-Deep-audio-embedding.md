@@ -10,7 +10,7 @@ categories:
 excerpt: "Visualizing the structure of Music in 3D"
 tagline: "Visualizing the structure of Music in 3D using deep autoencoders"
 header:
-  overlay_image: /images/DAE/banner_spectro resize.jpg
+  overlay_image: /images/DAE/banner_spectro_resize.jpg
 mathjax: "true"
 toc: true
 toc_label: "Contents"
@@ -19,7 +19,7 @@ toc_label: "Contents"
 >**I use deep autoencoders to represent audio (music) as trajectories in a low-dimensional embedding space. My end-to-end architecture attaches a recurrent module to the output of the encoder. Its task is to predict the next point in the trajectory. This conditions the encoder to produce smoother trajectories than a traditional autoencoder would---a feature that might improve forecasting accuracy when modeling physical systems.**
 
 **Project In Brief - TLDR**
-- [Youtube video](fsdfd)
+- [Youtube video](https://www.youtube.com/watch?v=CeMtEuT_8R0)
 - Temporal structure is inherent to all music but is often difficult to visualize in a space. I wanted to build a system that could represent the patterns in music in 3D.
 <!-- - If the original data is video of a system, it is helpful to first map it to a low-dimensional phase/embedding space. We can then model the system in far fewer variables. -->
 <!-- - The almost-repeating patterns in music make it similar to physical systems which oscillate or exhibit chaos.  -->
@@ -150,13 +150,13 @@ Finally, I measure how the forecasted trajectory diverges from the actual trajec
 The first step in forecasting in the embedding space is to find a function $$f$$ that can estimate the local displacement or derivative $$v = f(z)$$. I tried several models for $$f$$, including extracting the trained LSTM from the autoencoder model and having it predict $$v$$. However, I found that building a new model produced the most reasonable forecasts. This KNN-based method simply interpolates at the query position $$z_{\tau}$$ by taking a weighted average of the nearest $$K=5$$ vectors $$v_j$$. The weight for $$v_j$$ of neighbor $$j$$ equals the inverse distance from $$z_{\tau}$$ to $$z_j$$. The weights are normalized to sum to 1.
 
 # Results
-[Youtube video](fsdfd)
+[Youtube video](https://www.youtube.com/watch?v=CeMtEuT_8R0)
 
 ## Song Embeddings
 ![](/images/DAE/applause_2 resize.jpg)
 *Fig. **Applause** "Embedded segment from "Applause" by Lady Gaga. Green circles can be ignored; they are only used to synchronize audio in the corresponding video.*
 
-I embedded a sample of songs from diverse genres and rhythmic patterns. I [synchronized them with their audio](fsdfd) in Sony Movie Studio 16 Platinum. Watching and listening carefully is the best way to get a sense of why the embeddings look the way they do! 
+I embedded a sample of songs from diverse genres and rhythmic patterns. I [synchronized them with their audio](https://www.youtube.com/watch?v=CeMtEuT_8R0) in Sony Movie Studio 16 Platinum. Watching and listening carefully is the best way to get a sense of why the embeddings look the way they do! 
 
 My method very often highlights the cyclic nature of the rhythm in these songs---making the embeddings almost *too* predictable at times. Many songs had an annular/"bird's nest" structure, often with multiple lobes. This causes them to resemble strange attractors. However, in a system like the Lorenz equations, with an actual strange attractor, the solution curve will oscillate seemingly randomly between the two lobes. For music this does not happen; the curve traverses the lobes in a specific, repeating order. To borrow from dynamical systems theory, this makes the embedding more like a noisy *limit cycle*. 
 
