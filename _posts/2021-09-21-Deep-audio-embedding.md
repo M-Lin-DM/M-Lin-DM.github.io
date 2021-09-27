@@ -10,7 +10,7 @@ categories:
 excerpt: "Visualizing the structure of Music in 3D"
 tagline: "Visualizing the structure of Music in 3D using deep autoencoders"
 header:
-  overlay_image: /images/DAE/banner_spectro.png
+  overlay_image: /images/DAE/banner_spectro resize.jpg
 mathjax: "true"
 toc: true
 toc_label: "Contents"

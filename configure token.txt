@@ -1,0 +1,5 @@
+how to configure username and token
+
+Generate a new token. On older versions of git it was still asking for a password. I reinstalled git and then was able to sign in using the token. You should not have to add or reconfigure a 
+windows credential in the credential manager. But this is another thing to try.
+
