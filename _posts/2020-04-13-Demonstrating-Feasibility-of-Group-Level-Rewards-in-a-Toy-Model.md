@@ -20,18 +20,18 @@ In a similar vein, I suspected that it might be possible to administer abstract 
 1. Groups of interacting agents can work cooperatively to solve inherently distributed tasks such as construction and search. 
 2. We generally know how to specify the desired outcome of the group, yet it is hard to know what constitutes behaviors that work toward this outcome.
 
-To illustrate the second point, consider the group task of building a pyramid brick by brick. Assume each agent has the ability to pick up, move, and then place a brick in a 3D enviroment. You could imagine contructing some metric of success in terms of the geometry of the structure built. However, it is not at all clear what a given agent (with only locally available information) should be observing. Nor is it clear what types of actions to reward if you are doing reward shaping.
+To illustrate the second point, consider the group task of building a pyramid brick by brick. Assume each agent has the ability to pick up, move, and then place a brick in a 3D environment. You could imagine constructing some metric of success in terms of the geometry of the structure built. However, it is not at all clear what a given agent (with only locally available information) should be observing. Nor is it clear what types of actions to reward if you are doing reward shaping.
 
 ## Is the notion of a "Group-level reward" possible in practice?
-I define a group-level reward as a reward which is computed and triggered as a function of the group's holistic state, as opposed to the state or action of any one particular agent in a multi-agent deep reinforcement learning setting. The indirect nature of this kind of reward signal makes it seem implausible that it could lead to any useful learned behaviors. In the pyramid contruction example, the group reward could be a function of the squareness of the base and the triagularity of the sides, and it could be delivered (to all agents simultaneously) at either regular intervals or when some dramatic improvement was made. This doesn't seem like it could work. At any given time there may be several agents who are not doing any actions in favor of the group objective. Why then would you reinforce those un-helpful actions?
+I define a group-level reward as a reward which is computed and triggered as a function of the group's holistic state, as opposed to the state or action of any one particular agent in a multi-agent deep reinforcement learning setting. The indirect nature of this kind of reward signal makes it seem implausible that it could lead to any useful learned behaviors. In the pyramid construction example, the group reward could be a function of the squareness of the base and the triangularity of the sides, and it could be delivered (to all agents simultaneously) at either regular intervals or when some dramatic improvement was made. This doesn't seem like it could work. At any given time there may be several agents who are not doing any actions in favor of the group objective. Why then would you reinforce those un-helpful actions?
 
 ## Thermoregulators model: simplest possible demonstration of group-level rewards
 *In this project I show that agents can learn to act towards group objectives when the reward signal received is only peripherally related via group-level outcomes.*
 
-I imagine a group of 6 agents who are tasked with maintaing their group mean temperature $$T_g$$ at a certain target temperature $$T_0 = 0$$. Each agent is able to shift her own temperature $$T_p$$ either up or down by a fixed increment per timestep. 
+I imagine a group of 6 agents who are tasked with maintaining their group mean temperature $$T_g$$ at a certain target temperature $$T_0 = 0$$. Each agent is able to shift her own temperature $$T_p$$ either up or down by a fixed increment per timestep. 
 
 ![](/images/thermoreg.jpg)
-I train the agents with a discrete action space $$\{-1, 0, 1\}$$ corresponding to stepping down, not moving, and stepping up on the y-axis. Movement is restricted to the y axis, and height visuallizes temperature. The plane coresponds to $$y=0$$. The reward signal is defined as 
+I train the agents with a discrete action space $$\{-1, 0, 1\}$$ corresponding to stepping down, not moving, and stepping up on the y-axis. Movement is restricted to the y axis, and height visualizes temperature. The plane corresponds to $$y=0$$. The reward signal is defined as 
 $$R(T_g) = 0.25* 4^{1-\beta|T_g - 0|}$$ ($$\beta = 0.2$$)  
 which approaches 0 as $$|T_g| \rightarrow \infty$$ and approaches 1 as $$|T_g| \rightarrow 0$$. This reward is given every time an agent requests an action in Unity ML-Agents (which is at a fixed interval):
 
@@ -102,7 +102,7 @@ I found that the agents were able to learn to maintain a stable $$T_g$$ relative
 ![](/images/Thermoregulators/meanTg.jpg)
 
 - Agents trained using $$T_p$$ as input (orange dots) remain in a tight cluster, but their mean is biased toward positive values. I found this was consistent across multiple episodes. 
-- Agents trained using $$T_g$$ as input (blue line) showed no bias, but over time developed a large variance among group members. Their $$T_g$$ remained very close to 0 dispite the large spread, indicating they had successfully learned to adjust postion to compensate for other members diverging away from 0.
+- Agents trained using $$T_g$$ as input (blue line) showed no bias, but over time developed a large variance among group members. Their $$T_g$$ remained very close to 0 dispite the large spread, indicating they had successfully learned to adjust position to compensate for other members diverging away from 0.
 - Agents trained using $$[T_p, T_g]$$ (dashed yellow line) both maintained a $$T_g$$ near zero, while having relatively low variance in temperature.
 - Untrained Agents (random actions) (purple line) exhibit large fluctuations in temperature.
 
@@ -113,7 +113,7 @@ I found that the agents were able to learn to maintain a stable $$T_g$$ relative
 
 I have demonstrated that agents in a simple multiagent RL setting can learn beneficial actions from a reward signal that is delivered only on the basis of group-level outcomes. Agents in this problem setting must effectively learn by *by proxy* in that they are rewarded when *other* group members have done useful actions. Many actions having little to do with the group objective inevitably end up being rewarded and thus reinforced. Over the course of training, this source of error was apparently overcome. This opens the possibility of extending the technique of group-level rewards or **rewards-by-proxy** to more complex group objectives.
 
-The result on the choice of observation space demonstrates that a kind of **bias-variance tradeoff** can emerge if each agent's $$T_p(t)$$ is seen as a predictor of the target temperature. I found that providing information on both one's own state (individual level) and the group state allowed the group to stabilize its mean about an accurate temperature (ie near $$T_0$$) while its individual members had mimimal variance.  
+The result on the choice of observation space demonstrates that a kind of **bias-variance tradeoff** can emerge if each agent's $$T_p(t)$$ is seen as a predictor of the target temperature. I found that providing information on both one's own state (individual level) and the group state allowed the group to stabilize its mean about an accurate temperature (i.e. near $$T_0$$) while its individual members had minimal variance.  
 
 
 

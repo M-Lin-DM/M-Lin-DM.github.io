@@ -10,6 +10,8 @@ git commit -m "description"
 git push -u origin master
 
 #jekyll (when in folder)
+D:
+cd D:\M-Lin-DM.github.io
 bundler exec jekyll serve
 
 #list files

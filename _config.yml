@@ -25,7 +25,7 @@ url                      : # the base hostname & protocol for your site e.g. "ht
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : " M-Lin-DM/M-Lin-DM.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
-logo                     : "/images/potoo.jpg" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
+logo                     : "/images/co black 3 crop 2.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute         : 120
@@ -94,20 +94,20 @@ analytics:
 # Site Author
 author:
   name             : "Michael R Lin, PhD"
-  avatar           : "images/IMG_4836.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "images/avat_hecht_3.png" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "Graduate Researcher"
   location         : "Washington D.C."
   email            :
   links:
     - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
+      icon: "far fa-envelope"
       url: mrlin@asu.edu
-    - label: "Complex Objects Youtube Channel"
-      icon: "fas fa-fw fa-link"
+    - label: "Complex Objects Youtube"
+      icon: "fab fa-youtube"
       url: "https://www.youtube.com/channel/UCrkwN8pE2AH32pmvhOeyg8A?view_as=subscriber"
-    # - label: "Facebook"
-    #   icon: "fab fa-fw fa-facebook-square"
-    #   # url: "https://facebook.com/"
+    - label: "LinkedIn"
+      icon: "fab fa-linkedin"
+      url: "https://www.linkedin.com/in/michael-lin-03448b164/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/M-Lin-DM"
@@ -118,17 +118,17 @@ author:
 # Site Footer
 footer:
   links:
-    # - label: "Twitter"
-    #   icon: "fab fa-fw fa-twitter-square"
-      # url:
+    - label: "LinkedIn"
+      icon: "fab fa-linkedin"
+      url: "https://www.linkedin.com/in/michael-lin-03448b164/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/M-Lin-DM"
     - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
+      icon: "far fa-envelope"
       url: mrlin@asu.edu
     - label: "Youtube"
-      icon: "fas fa-fw fa-link"
+      icon: "fab fa-youtube"
       url: "https://www.youtube.com/channel/UCrkwN8pE2AH32pmvhOeyg8A?view_as=subscriber"
 
 
