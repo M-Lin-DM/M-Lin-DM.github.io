@@ -5,7 +5,7 @@ excerpt: "About me"
 
 ---
 
-![](/images/IMG_4836 - Copy.jpg)
+![](/images/IMG_4836_1000.jpg)
 First, thanks for visiting my blog and personal site! 
 
 # A note on the posts' content
@@ -18,7 +18,7 @@ I'm originally from Maryland and went to school up through undergrad there. I wa
 
 During this time, I began working at a granular/soft-matter and biophysics lab with Dr. Wolfgang Losert. I performed experiments studying the motion of spherical glass beads under shearing deformations. This was my first exposure to scientific research, and importantly, to large volumes of data. Using a laser-sheet-based 3D scanning system, we could record the location and orientation of each and every particle in a 3D volume. As the beads were stirred by a rotating disk from below, we obtained a spatial trajectory for each bead. It was my job to make sense of these trajectories through novel data analysis techniques. I also came up with new image processing techniques that allowed us to measure the rotation rates of the beads. This was thus my first exposure to **computer vision** as well! So much of my later ideas, interests, and creations would stem from this early experience---even to this day. I was forever hooked on the power and beauty of data.
 
-![](/images/about/granular.png)
+![](/images/about/granular_jpg.jpg)
 *A) The chamber containing glass beads and index-matched fluid. B) Experiment schematic. A laser sheet shines horizontally through the chamber, revealing a cross section of the beads. A camera records the cross sectional image from above. All slices are later fused into a single 3D image. C) I plotted each layer 3D image as points where black represents the interior of beads. These beads have perpendicular holes drilled. I developed code to compute the principle axes from this data (red and blue lines), allowing 3D orientation (and thus rotation) to be measured. D) Trajectories of a sample of beads in the chamber. Black lines show the orientation of the bead axis over time. Color indicates bead ID#*
 
 ## Grad school
@@ -29,12 +29,14 @@ I was exposed to a huge suite of computational analysis and modeling techniques;
 
 Here is a list of areas that I focused extensively on. I conducted more experiments than I can count and wrote a lot of code implementing these methods from scratch.
 
+- Data visualization
+- Particle simulation
 - Dynamical systems and chaos
 - Dimensionality reduction
 - Clustering
 - Network analysis and temporal networks
-- Agent-based modeling
-- Deep learning esp. Convolutional networks for CV
+- Agent-based modeling, 
+- Deep learning (esp. Convolutional networks for CV)
 - Reinforcement learning
 
 During grad school I became very frustrated with the slow pace of the publishing process. This blog started to become an outlet where I could get my ideas out there without having to wait. Things tend to become stale the longer you wait.
