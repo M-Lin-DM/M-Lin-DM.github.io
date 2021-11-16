@@ -16,7 +16,7 @@ toc_label: "Contents"
 ---
 
 **In Brief**
-- In the context of deep generative modeling, **zero-shot learning** can be though of as a model's ability to synthesize images that it received no training data on. This can, in theory, be achieved by combining latent variables in new ways.
+- In the context of deep generative modeling, **zero-shot learning** can be thought of as a model's ability to synthesize images that it received no training data on. This can, in theory, be achieved by combining latent variables in new ways.
 - I perform two experiments in that involve training generative models called Convolutional variational autoencoders (VAE) on a synthetic image dataset, drawn from a known, 2D latent space. 
 - By engineering the latent space directly, I evaluate the VAE's ability to perform zero-shot learning in a highly interpretable experiment.
 - **Experiment 1, Parameter space transects (part 2/3)** | I first remove a region of points from the center of a synthetic image dataset. Then I use the trained VAE to sample images from the removed region. **Result:** The model reconstructs images from the removed region fairly well in only a few cases. Highlights the difficulty of interpolating to new regions of the latent space.

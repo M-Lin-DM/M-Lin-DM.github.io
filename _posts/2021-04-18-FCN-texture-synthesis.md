@@ -1,5 +1,5 @@
 --- 
-title: "Image-Learning-based Texture Synthesis part 1/2: A (partial) Taxonomy of Generative Models"
+title: "The Impact of Training data on Texture Synthesis models part 1/2"
 date: 2021-04-18
 # layout: "single"
 permalink: /FCN_Lichen_textures_1/

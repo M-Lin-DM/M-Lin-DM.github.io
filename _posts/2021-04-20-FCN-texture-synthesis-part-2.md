@@ -1,5 +1,5 @@
 --- 
-title: "Image-Learning-based Texture Synthesis part 2/2: Dataset and algorithm"
+title: "The Impact of Training data on Texture Synthesis models part 2/2"
 date: 2021-04-20
 # layout: "single"
 permalink: /FCN_Lichen_textures_2/

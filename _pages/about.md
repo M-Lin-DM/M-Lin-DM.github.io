@@ -29,6 +29,7 @@ I was exposed to a huge suite of computational analysis and modeling techniques;
 
 Here is a list of areas that I focused extensively on. I conducted more experiments than I can count and wrote a lot of code implementing these methods from scratch.
 
+- Modelling and analysis of "Complex Adaptive Systems"
 - Data visualization
 - Particle simulation
 - Dynamical systems and chaos
